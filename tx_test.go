@@ -10,9 +10,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/conformal/btcutil"
-	"github.com/conformal/btcwire"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/mably/btcutil"
+	"github.com/mably/btcwire"
 )
 
 // TestTx tests the API for Tx.
@@ -35,7 +35,7 @@ func TestTx(t *testing.T) {
 	}
 
 	// Hash for block 100,000 transaction 0.
-	wantShaStr := "8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87"
+	wantShaStr := "26471b77a7bd53f881ac41581db81ad449c08a229dc6b66766e9c7a7c08f08fb"
 	wantSha, err := btcwire.NewShaHashFromStr(wantShaStr)
 	if err != nil {
 		t.Errorf("NewShaHashFromStr: %v", err)

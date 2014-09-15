@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/conformal/btcutil"
-	"github.com/conformal/btcwire"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/mably/btcutil"
+	"github.com/mably/btcwire"
 )
 
 // TestBlock tests the API for Block.
@@ -56,10 +56,10 @@ func TestBlock(t *testing.T) {
 
 	// Shas for the transactions in Block100000.
 	wantTxShas := []string{
-		"8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87",
-		"fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4",
-		"6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4",
-		"e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d",
+		"26471b77a7bd53f881ac41581db81ad449c08a229dc6b66766e9c7a7c08f08fb",
+		"e980e17324cdc69b687657d7213a2b000e66f78c05220ce31975c9be941583b7",
+		"de7abf457d1541af36ce6501e76b69413b22d65302a98879d01fd3d08919c8a5",
+		"2130d1715c4f26e5a57fec8c29d29d61098d028bad9f45afebf981a8be2cfcdb",
 	}
 
 	// Create a new block to nuke all cached data.
@@ -147,10 +147,10 @@ func TestBlock(t *testing.T) {
 
 	// Transaction offsets and length for the transaction in Block100000.
 	wantTxLocs := []btcwire.TxLoc{
-		{TxStart: 81, TxLen: 135},
-		{TxStart: 216, TxLen: 259},
-		{TxStart: 475, TxLen: 257},
-		{TxStart: 732, TxLen: 225},
+		{TxStart: 81, TxLen: 139},
+		{TxStart: 220, TxLen: 263},
+		{TxStart: 483, TxLen: 261},
+		{TxStart: 744, TxLen: 229},
 	}
 
 	// Ensure the transaction location information is accurate.
@@ -325,6 +325,7 @@ var Block100000 = btcwire.MsgBlock{
 	Transactions: []*btcwire.MsgTx{
 		{
 			Version: 1,
+			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
 					PreviousOutpoint: btcwire.OutPoint{
@@ -359,6 +360,7 @@ var Block100000 = btcwire.MsgBlock{
 		},
 		{
 			Version: 1,
+			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
 					PreviousOutpoint: btcwire.OutPoint{
@@ -428,6 +430,7 @@ var Block100000 = btcwire.MsgBlock{
 		},
 		{
 			Version: 1,
+			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
 					PreviousOutpoint: btcwire.OutPoint{
@@ -496,6 +499,7 @@ var Block100000 = btcwire.MsgBlock{
 		},
 		{
 			Version: 1,
+			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
 					PreviousOutpoint: btcwire.OutPoint{
@@ -551,4 +555,5 @@ var Block100000 = btcwire.MsgBlock{
 			LockTime: 0,
 		},
 	},
+	Signature: []byte{},
 }

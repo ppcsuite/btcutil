@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/conformal/btcwire"
+	"github.com/mably/btcwire"
 )
 
 // OutOfRangeError describes an error due to accessing an element that is out
@@ -37,6 +37,7 @@ type Block struct {
 	blockHeight     int64             // Height in the main block chain
 	transactions    []*Tx             // Transactions
 	txnsGenerated   bool              // ALL wrapped transactions generated
+	meta            *btcwire.Meta
 }
 
 // MsgBlock returns the underlying btcwire.MsgBlock for the Block.

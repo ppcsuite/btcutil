@@ -15,8 +15,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/conformal/btcnet"
-	"github.com/conformal/btcutil/hdkeychain"
+	"github.com/mably/btcnet"
+	"github.com/mably/btcutil/hdkeychain"
 )
 
 // TestBIP0032Vectors tests the vectors provided by [BIP32] to ensure the
@@ -358,7 +358,7 @@ func TestExtendedKeyAPI(t *testing.T) {
 			parentFP:  0,
 			privKey:   "e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35",
 			pubKey:    "0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2",
-			address:   "15mKKb2eos1hWa6tisdPwwDC1a5J1y9nma",
+			address:   "PDMVUZRVrnVtVQmf4wwvcqBTdKFBCTLrzF",
 		},
 		{
 			name:       "test vector 1 chain m/0H/1/2H public",
@@ -367,7 +367,7 @@ func TestExtendedKeyAPI(t *testing.T) {
 			parentFP:   3203769081,
 			privKeyErr: hdkeychain.ErrNotPrivExtKey,
 			pubKey:     "0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
-			address:    "1NjxqbA9aZWnh17q1UW3rB4EPu79wDXj7x",
+			address:    "PWL8zZYzdUzyfqnbMYpaX52W1eH32AT89x",
 		},
 	}
 
@@ -742,7 +742,7 @@ func TestZero(t *testing.T) {
 			return false
 		}
 
-		wantAddr := "1HT7xU2Ngenf7D4yocz2SAcnNLW7rK8d4E"
+		wantAddr := "PR3J7SRDjaGr63jk9hJZ74b3z5fzzH7G6U"
 		addr, err := key.Address(&btcnet.MainNetParams)
 		if err != nil {
 			t.Errorf("Addres s #%d (%s): unexpected error: %v", i,
