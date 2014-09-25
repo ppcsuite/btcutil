@@ -156,14 +156,6 @@ func TestAmountUnitConversions(t *testing.T) {
 		},
 		{
 
-			name:      "satoshi",
-			amount:    44433322211100,
-			unit:      AmountSatoshi,
-			converted: 44433322211100,
-			s:         "44433322211100 Satoshi",
-		},
-		{
-
 			name:      "non-standard unit",
 			amount:    44433322211100,
 			unit:      AmountUnit(-1),
