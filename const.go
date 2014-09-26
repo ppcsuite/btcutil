@@ -6,11 +6,11 @@ package btcutil
 
 const (
 	// SatoshiPerBitcent is the number of satoshi in one bitcoin cent.
-	SatoshiPerBitcent = 1e6
+	SatoshiPerBitcent = 1e4 // ppc: 10000 sunny per peercoin cent
 
 	// SatoshiPerBitcoin is the number of satoshi in one bitcoin (1 BTC).
-	SatoshiPerBitcoin = 1e8
+	SatoshiPerBitcoin = 1e6 // ppc: 1000000 sunny per peercoin
 
 	// MaxSatoshi is the maximum transaction amount allowed in satoshi.
-	MaxSatoshi = 21e6 * SatoshiPerBitcoin
+	MaxSatoshi = 21e6 * SatoshiPerBitcoin // ppc: TODO check value for peercoin
 )
