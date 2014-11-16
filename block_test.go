@@ -328,7 +328,7 @@ var Block100000 = btcwire.MsgBlock{
 			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
-					PreviousOutpoint: btcwire.OutPoint{
+					PreviousOutPoint: btcwire.OutPoint{
 						Hash:  btcwire.ShaHash{},
 						Index: 0xffffffff,
 					},
@@ -363,7 +363,7 @@ var Block100000 = btcwire.MsgBlock{
 			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
-					PreviousOutpoint: btcwire.OutPoint{
+					PreviousOutPoint: btcwire.OutPoint{
 						Hash: btcwire.ShaHash([32]byte{ // Make go vet happy.
 							0x03, 0x2e, 0x38, 0xe9, 0xc0, 0xa8, 0x4c, 0x60,
 							0x46, 0xd6, 0x87, 0xd1, 0x05, 0x56, 0xdc, 0xac,
@@ -433,7 +433,7 @@ var Block100000 = btcwire.MsgBlock{
 			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
-					PreviousOutpoint: btcwire.OutPoint{
+					PreviousOutPoint: btcwire.OutPoint{
 						Hash: btcwire.ShaHash([32]byte{ // Make go vet happy.
 							0xc3, 0x3e, 0xbf, 0xf2, 0xa7, 0x09, 0xf1, 0x3d,
 							0x9f, 0x9a, 0x75, 0x69, 0xab, 0x16, 0xa3, 0x27,
@@ -502,7 +502,7 @@ var Block100000 = btcwire.MsgBlock{
 			Time:    time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
 			TxIn: []*btcwire.TxIn{
 				{
-					PreviousOutpoint: btcwire.OutPoint{
+					PreviousOutPoint: btcwire.OutPoint{
 						Hash: btcwire.ShaHash([32]byte{ // Make go vet happy.
 							0x0b, 0x60, 0x72, 0xb3, 0x86, 0xd4, 0xa7, 0x73,
 							0x23, 0x52, 0x37, 0xf6, 0x4c, 0x11, 0x26, 0xac,
