@@ -3,8 +3,8 @@ go:
   - release
   - tip
 install:
-  - go get -d -t -u -v ./...
-  - go get -v code.google.com/p/go.tools/cmd/cover
+  - go get -d -t -v ./...
+  - ./.travis/get_ci_cover.sh  
 script:
   - go test -v -covermode=count -coverprofile=profile.cov
 after_success:
