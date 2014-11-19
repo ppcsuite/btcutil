@@ -81,7 +81,7 @@ func NewBlockWithMetas(msgBlock *btcwire.MsgBlock, meta *btcwire.Meta) *Block {
 }
 
 // https://github.com/ppcoin/ppcoin/blob/v0.4.0ppc/src/main.h#L962
-// ppcoin: two types of block: proof-of-work or proof-of-stake
+// ppc: two types of block: proof-of-work or proof-of-stake
 func (block *Block) IsProofOfStake() bool {
 	return block.msgBlock.IsProofOfStake()
 }
