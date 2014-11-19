@@ -39,13 +39,13 @@ func TestAmountCreation(t *testing.T) {
 		},
 		{
 			name:     "exceeds max producable",
-			amount:   21e6 + 1e-8,
+			amount:   21e6 + 1e-6, // ppc:
 			valid:    true,
 			expected: MaxSatoshi + 1,
 		},
 		{
 			name:     "exceeds min producable",
-			amount:   -21e6 - 1e-8,
+			amount:   -21e6 - 1e-6, // ppc:
 			valid:    true,
 			expected: -MaxSatoshi - 1,
 		},
@@ -57,7 +57,7 @@ func TestAmountCreation(t *testing.T) {
 		},
 		{
 			name:     "fraction",
-			amount:   0.01234567,
+			amount:   1.234567,
 			valid:    true,
 			expected: 1234567,
 		},
@@ -127,21 +127,21 @@ func TestAmountUnitConversions(t *testing.T) {
 		},
 		{
 			name:      "kBTC",
-			amount:    44433322211100,
+			amount:    444333222111, // ppc:
 			unit:      AmountKiloBTC,
 			converted: 444.33322211100,
 			s:         "444.333222111 kBTC",
 		},
 		{
 			name:      "BTC",
-			amount:    44433322211100,
+			amount:    444333222111, // ppc:
 			unit:      AmountBTC,
 			converted: 444333.22211100,
 			s:         "444333.222111 BTC",
 		},
 		{
 			name:      "mBTC",
-			amount:    44433322211100,
+			amount:    444333222111, // ppc:
 			unit:      AmountMilliBTC,
 			converted: 444333222.11100,
 			s:         "444333222.111 mBTC",
@@ -149,7 +149,7 @@ func TestAmountUnitConversions(t *testing.T) {
 		{
 
 			name:      "μBTC",
-			amount:    44433322211100,
+			amount:    444333222111, // ppc:
 			unit:      AmountMicroBTC,
 			converted: 444333222111.00,
 			s:         "444333222111 μBTC",
@@ -157,7 +157,7 @@ func TestAmountUnitConversions(t *testing.T) {
 		{
 
 			name:      "non-standard unit",
-			amount:    44433322211100,
+			amount:    444333222111,  // ppc:
 			unit:      AmountUnit(-1),
 			converted: 4443332.2211100,
 			s:         "4443332.22111 1e-1 BTC",
