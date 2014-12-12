@@ -6,9 +6,11 @@ package btcutil
 
 import (
 	"bytes"
+	"fmt"
+	"time"
+
 	"github.com/conformal/btclog"
 	"github.com/mably/btcwire"
-	"time"
 )
 
 func (b *Block) Meta() *btcwire.Meta {
@@ -54,6 +56,8 @@ func (b *Block) BytesWithMeta() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Printf("Meta Serialize : %v, %v\n", w.Len(), b.Meta().GetSerializedSize())
 
 	// Serialize the MsgBlock.
 	err = b.msgBlock.Serialize(&w)

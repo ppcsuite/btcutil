@@ -183,6 +183,10 @@ func (b *Block) TxLoc() ([]btcwire.TxLoc, error) {
 	if err != nil {
 		return nil, err
 	}
+	b.meta.TxOffsets = make([]uint32, len(txLocs))
+	for i, txLoc := range txLocs {
+		b.meta.TxOffsets[i] = uint32(txLoc.TxStart)
+	}
 	return txLocs, err
 }
 
