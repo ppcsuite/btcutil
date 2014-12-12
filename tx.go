@@ -21,9 +21,10 @@ const TxIndexUnknown = -1
 // transaction on its first access so subsequent accesses don't have to repeat
 // the relatively expensive hashing operations.
 type Tx struct {
-	msgTx   *btcwire.MsgTx   // Underlying MsgTx
-	txSha   *btcwire.ShaHash // Cached transaction hash
-	txIndex int              // Position within a block or TxIndexUnknown
+	msgTx    *btcwire.MsgTx   // Underlying MsgTx
+	txSha    *btcwire.ShaHash // Cached transaction hash
+	txIndex  int              // Position within a block or TxIndexUnknown
+	txOffset uint32           // ppc Offset within a block or TxOffsetUnknown
 }
 
 // MsgTx returns the underlying btcwire.MsgTx for the transaction.
@@ -67,6 +68,7 @@ func NewTx(msgTx *btcwire.MsgTx) *Tx {
 	return &Tx{
 		msgTx:   msgTx,
 		txIndex: TxIndexUnknown,
+		txOffset: TxOffsetUnknown, // ppc:
 	}
 }
 
@@ -90,6 +92,7 @@ func NewTxFromReader(r io.Reader) (*Tx, error) {
 	t := Tx{
 		msgTx:   &msgTx,
 		txIndex: TxIndexUnknown,
+		txOffset: TxOffsetUnknown, // ppc:
 	}
 	return &t, nil
 }

@@ -6,12 +6,27 @@ package btcutil
 
 import (
 	"bytes"
-	"fmt"
 	"time"
 
 	"github.com/conformal/btclog"
 	"github.com/mably/btcwire"
 )
+
+// TxOffsetUnknown is the value returned for a transaction offset that is unknown.
+// This is typically because the transaction has not been inserted into a block
+// yet.
+const TxOffsetUnknown = uint32(0)
+
+// Offset returns the saved offset of the transaction within a block.  This value
+// will be TxOffsetUnknown if it hasn't already explicitly been set.
+func (t *Tx) Offset() uint32 {
+	return t.txOffset
+}
+
+// SetOffset sets the offset of the transaction in within a block.
+func (t *Tx) SetOffset(offset uint32) {
+	t.txOffset = offset
+}
 
 func (b *Block) Meta() *btcwire.Meta {
 	if b.meta != nil {
@@ -56,8 +71,6 @@ func (b *Block) BytesWithMeta() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Printf("Meta Serialize : %v, %v\n", w.Len(), b.Meta().GetSerializedSize())
 
 	// Serialize the MsgBlock.
 	err = b.msgBlock.Serialize(&w)

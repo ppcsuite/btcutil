@@ -111,9 +111,15 @@ func (b *Block) Tx(txNum int) (*Tx, error) {
 		return b.transactions[txNum], nil
 	}
 
+	// ppc: extract tx offsets if needed
+	if b.Meta().TxOffsets == nil {
+		b.TxLoc()
+	}
+
 	// Generate and cache the wrapped transaction and return it.
 	newTx := NewTx(b.msgBlock.Transactions[txNum])
 	newTx.SetIndex(txNum)
+	newTx.SetOffset(b.Meta().TxOffsets[txNum]) // ppc:
 	b.transactions[txNum] = newTx
 	return newTx, nil
 }
@@ -135,12 +141,18 @@ func (b *Block) Transactions() []*Tx {
 		b.transactions = make([]*Tx, len(b.msgBlock.Transactions))
 	}
 
+	// ppc: extract tx offsets if needed
+	if b.Meta().TxOffsets == nil {
+		b.TxLoc()
+	}
+
 	// Generate and cache the wrapped transactions for all that haven't
 	// already been done.
 	for i, tx := range b.transactions {
 		if tx == nil {
 			newTx := NewTx(b.msgBlock.Transactions[i])
 			newTx.SetIndex(i)
+			newTx.SetOffset(b.Meta().TxOffsets[i]) // ppc:
 			b.transactions[i] = newTx
 		}
 	}
