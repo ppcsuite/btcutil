@@ -17,6 +17,11 @@ import (
 // yet.
 const TxOffsetUnknown = uint32(0)
 
+// KernelStakeModifierUnknown is the value returned for a block kernel stake
+// modifier that is unknown.
+// This is typically because the block has not been used for minting yet.
+const KernelStakeModifierUnknown = uint64(0)
+
 // Offset returns the saved offset of the transaction within a block.  This value
 // will be TxOffsetUnknown if it hasn't already explicitly been set.
 func (t *Tx) Offset() uint32 {
