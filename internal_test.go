@@ -13,7 +13,7 @@ package btcutil
 
 import (
 	"code.google.com/p/go.crypto/ripemd160"
-	"github.com/conformal/btcec"
+	"github.com/btcsuite/btcec"
 )
 
 // SetBlockBytes sets the internal serialized block byte buffer to the passed

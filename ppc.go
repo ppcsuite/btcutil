@@ -6,7 +6,7 @@ package btcutil
 
 import (
 	"bytes"
-	"github.com/conformal/btclog"
+	"github.com/btcsuite/btclog"
 	"github.com/mably/btcwire"
 	"time"
 )

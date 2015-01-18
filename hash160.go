@@ -8,7 +8,7 @@ import (
 	"hash"
 
 	"code.google.com/p/go.crypto/ripemd160"
-	"github.com/conformal/fastsha256"
+	"github.com/btcsuite/fastsha256"
 )
 
 // Calculate the hash of hasher over buf.

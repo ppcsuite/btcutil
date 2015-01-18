@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/conformal/btcec"
+	"github.com/btcsuite/btcec"
 	"github.com/mably/btcnet"
 	"github.com/mably/btcwire"
 )

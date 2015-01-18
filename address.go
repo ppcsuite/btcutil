@@ -10,7 +10,7 @@ import (
 	"errors"
 
 	"code.google.com/p/go.crypto/ripemd160"
-	"github.com/conformal/btcec"
+	"github.com/btcsuite/btcec"
 	"github.com/mably/btcnet"
 	"github.com/mably/btcwire"
 )
