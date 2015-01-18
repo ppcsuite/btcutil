@@ -28,7 +28,7 @@ http://godoc.org/github.com/mably/btcutil
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/conformal/btcutil
+http://localhost:6060/pkg/github.com/btcsuite/btcutil
 
 ## Installation
 
