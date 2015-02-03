@@ -1,8 +1,10 @@
 btcutil
 =======
 
-[![Build Status](https://travis-ci.org/conformal/btcutil.png?branch=master)]
-(https://travis-ci.org/conformal/btcutil)
+[![Build Status](https://travis-ci.org/btcsuite/btcutil.png?branch=master)]
+(https://travis-ci.org/btcsuite/btcutil) [![Coverage Status]
+(https://coveralls.io/repos/btcsuite/btcutil/badge.png?branch=master)]
+(https://coveralls.io/r/btcsuite/btcutil?branch=master)
 [![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
 
 Package btcutil provides bitcoin-specific convenience functions and types.

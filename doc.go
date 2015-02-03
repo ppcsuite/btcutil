@@ -19,15 +19,28 @@ raw wire protocol transactions.  It memoizes the hash for the transaction on its
 first access so subsequent accesses don't have to repeat the relatively
 expensive hashing operations.
 
-Base58 Usage
+Address Overview
 
-To decode a base58 string:
+The Address interface provides an abstraction for a Bitcoin address.  While the
+most common type is a pay-to-pubkey-hash, Bitcoin already supports others and
+may well support more in the future.  This package currently provides
+implementations for the pay-to-pubkey, pay-to-pubkey-hash, and
+pay-to-script-hash address types.
 
- rawData := btcutil.Base58Decode(encodedData)
+To decode/encode an address:
 
-Similarly, to encode the same data:
-
- encodedData := btcutil.Base58Encode(rawData)
-
+	// NOTE: The default network is only used for address types which do not
+	// already contain that information.  At this time, that is only
+	// pay-to-pubkey addresses.
+	addrString := "04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962" +
+		"e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d57" +
+		"8a4c702b6bf11d5f"
+	defaultNet := &btcnet.MainNetParams
+	addr, err := btcutil.DecodeAddress(addrString, defaultNet)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(addr.EncodeAddress())
 */
 package btcutil

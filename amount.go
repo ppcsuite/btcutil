@@ -87,6 +87,11 @@ func (a Amount) ToUnit(u AmountUnit) float64 {
 	return float64(a) / math.Pow10(int(u+6)) // ppc: 6 digits only
 }
 
+// ToBTC is the equivalent of calling ToUnit with AmountBTC.
+func (a Amount) ToBTC() float64 {
+	return a.ToUnit(AmountBTC)
+}
+
 // Format formats a monetary amount counted in bitcoin base units as a
 // string for a given unit.  The conversion will succeed for any unit,
 // however, known units will be formated with an appended label describing
