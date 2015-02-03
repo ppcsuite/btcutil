@@ -386,7 +386,7 @@ func (k *ExtendedKey) String() string {
 
 	checkSum := btcwire.DoubleSha256(serializedBytes)[:4]
 	serializedBytes = append(serializedBytes, checkSum...)
-	return btcutil.Base58Encode(serializedBytes)
+	return base58.Encode(serializedBytes)
 }
 
 // IsForNet returns whether or not the extended key is associated with the
@@ -473,7 +473,7 @@ func NewMaster(seed []byte) (*ExtendedKey, error) {
 func NewKeyFromString(key string) (*ExtendedKey, error) {
 	// The base58-decoded extended key must consist of a serialized payload
 	// plus an additional 4 bytes for the checksum.
-	decoded := btcutil.Base58Decode(key)
+	decoded := base58.Decode(key)
 	if len(decoded) != serializedKeyLen+4 {
 		return nil, ErrInvalidKeyLen
 	}

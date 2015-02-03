@@ -1,35 +1,32 @@
-// Copyright (c) 2013-2014 Conformal Systems LLC.
+// Copyright (c) 2013-2015 Conformal Systems LLC.
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package base58
 
 import (
 	"math/big"
-	"strings"
 )
 
-// alphabet is the modified base58 alphabet used by Bitcoin.
-const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+//go:generate go run genalphabet.go
 
 var bigRadix = big.NewInt(58)
 var bigZero = big.NewInt(0)
 
-// Base58Decode decodes a modified base58 string to a byte slice.
-func Base58Decode(b string) []byte {
+// Decode decodes a modified base58 string to a byte slice.
+func Decode(b string) []byte {
 	answer := big.NewInt(0)
 	j := big.NewInt(1)
 
+	scratch := new(big.Int)
 	for i := len(b) - 1; i >= 0; i-- {
-		tmp := strings.IndexAny(alphabet, string(b[i]))
-		if tmp == -1 {
+		tmp := b58[b[i]]
+		if tmp == 255 {
 			return []byte("")
 		}
-		idx := big.NewInt(int64(tmp))
-		tmp1 := big.NewInt(0)
-		tmp1.Mul(j, idx)
-
-		answer.Add(answer, tmp1)
+		scratch.SetInt64(int64(tmp))
+		scratch.Mul(j, scratch)
+		answer.Add(answer, scratch)
 		j.Mul(j, bigRadix)
 	}
 
@@ -37,7 +34,7 @@ func Base58Decode(b string) []byte {
 
 	var numZeros int
 	for numZeros = 0; numZeros < len(b); numZeros++ {
-		if b[numZeros] != alphabet[0] {
+		if b[numZeros] != alphabetIdx0 {
 			break
 		}
 	}
@@ -48,8 +45,8 @@ func Base58Decode(b string) []byte {
 	return val
 }
 
-// Base58Encode encodes a byte slice to a modified base58 string.
-func Base58Encode(b []byte) string {
+// Encode encodes a byte slice to a modified base58 string.
+func Encode(b []byte) string {
 	x := new(big.Int)
 	x.SetBytes(b)
 
@@ -65,7 +62,7 @@ func Base58Encode(b []byte) string {
 		if i != 0 {
 			break
 		}
-		answer = append(answer, alphabet[0])
+		answer = append(answer, alphabetIdx0)
 	}
 
 	// reverse

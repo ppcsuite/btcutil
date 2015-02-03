@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil_test
+package base58_test
 
 import (
 	"bytes"
@@ -66,8 +66,8 @@ func TestBase58(t *testing.T) {
 	// Base58Encode tests
 	for x, test := range stringTests {
 		tmp := []byte(test.in)
-		if res := btcutil.Base58Encode(tmp); res != test.out {
-			t.Errorf("Base58Encode test #%d failed: got: %s want: %s",
+		if res := base58.Encode(tmp); res != test.out {
+			t.Errorf("Encode test #%d failed: got: %s want: %s",
 				x, res, test.out)
 			continue
 		}
@@ -80,8 +80,8 @@ func TestBase58(t *testing.T) {
 			t.Errorf("hex.DecodeString failed failed #%d: got: %s", x, test.in)
 			continue
 		}
-		if res := btcutil.Base58Decode(test.out); bytes.Equal(res, b) != true {
-			t.Errorf("Base58Decode test #%d failed: got: %q want: %q",
+		if res := base58.Decode(test.out); bytes.Equal(res, b) != true {
+			t.Errorf("Decode test #%d failed: got: %q want: %q",
 				x, res, test.in)
 			continue
 		}
@@ -89,8 +89,8 @@ func TestBase58(t *testing.T) {
 
 	// Base58Decode with invalid input
 	for x, test := range invalidStringTests {
-		if res := btcutil.Base58Decode(test.in); string(res) != test.out {
-			t.Errorf("Base58Decode invalidString test #%d failed: got: %q want: %q",
+		if res := base58.Decode(test.in); string(res) != test.out {
+			t.Errorf("Decode invalidString test #%d failed: got: %q want: %q",
 				x, res, test.out)
 			continue
 		}
