@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/mably/btcutil"
-	"github.com/mably/btcwire"
+	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/btcwire"
 )
 
 // TestBlock tests the API for Block.

@@ -21,12 +21,12 @@ provided.
 
 ## Documentation
 
-[![GoDoc](https://godoc.org/github.com/mably/btcutil?status.png)]
-(http://godoc.org/github.com/mably/btcutil)
+[![GoDoc](https://godoc.org/github.com/ppcsuite/btcutil?status.png)]
+(http://godoc.org/github.com/ppcsuite/btcutil)
 
 Full `go doc` style documentation for the project can be viewed online without
 installing this package by using the GoDoc site here:
-http://godoc.org/github.com/mably/btcutil
+http://godoc.org/github.com/ppcsuite/btcutil
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
@@ -35,7 +35,7 @@ http://localhost:6060/pkg/github.com/btcsuite/btcutil
 ## Installation
 
 ```bash
-$ go get github.com/mably/btcutil
+$ go get github.com/ppcsuite/btcutil
 ```
 
 ## GPG Verification Key

@@ -7,9 +7,9 @@ import (
 	"testing"
 
 	"github.com/btcsuite/fastsha256"
-	"github.com/mably/btcutil"
-	"github.com/mably/btcutil/coinset"
-	"github.com/mably/btcwire"
+	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/btcutil/coinset"
+	"github.com/ppcsuite/btcwire"
 )
 
 type TestCoin struct {

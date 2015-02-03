@@ -9,8 +9,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/mably/btcutil/bloom"
-	"github.com/mably/btcwire"
+	"github.com/ppcsuite/btcutil/bloom"
+	"github.com/ppcsuite/btcwire"
 )
 
 // This example demonstrates how to create a new bloom filter, add a transaction

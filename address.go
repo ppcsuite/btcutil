@@ -9,8 +9,8 @@ import (
 	"errors"
 
 	"github.com/btcsuite/btcec"
-	"github.com/mably/btcnet"
-	"github.com/mably/btcutil/base58"
+	"github.com/ppcsuite/btcnet"
+	"github.com/ppcsuite/btcutil/base58"
 	"golang.org/x/crypto/ripemd160"
 )
 

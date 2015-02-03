@@ -9,8 +9,8 @@ import (
 	"math"
 	"sync"
 
-	"github.com/mably/btcutil"
-	"github.com/mably/btcwire"
+	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/btcwire"
 	"github.com/mably/ppcd/txscript"
 )
 

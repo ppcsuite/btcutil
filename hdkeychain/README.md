@@ -1,8 +1,8 @@
 hdkeychain
 ==========
 
-[![Build Status](https://travis-ci.org/mably/btcutil.png?branch=master)]
-(https://travis-ci.org/mably/btcutil)
+[![Build Status](https://travis-ci.org/ppcsuite/btcutil.png?branch=master)]
+(https://travis-ci.org/ppcsuite/btcutil)
 
 Package hdkeychain provides an API for bitcoin hierarchical deterministic
 extended keys (BIP0032).
@@ -37,35 +37,35 @@ report.  Package hdkeychain is licensed under the liberal ISC license.
 
 ## Documentation
 
-[![GoDoc](https://godoc.org/github.com/mably/btcutil/hdkeychain?status.png)]
-(http://godoc.org/github.com/mably/btcutil/hdkeychain)
+[![GoDoc](https://godoc.org/github.com/ppcsuite/btcutil/hdkeychain?status.png)]
+(http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain)
 
 Full `go doc` style documentation for the project can be viewed online without
 installing this package by using the GoDoc site here:
-http://godoc.org/github.com/mably/btcutil/hdkeychain
+http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/mably/btcutil/hdkeychain
+http://localhost:6060/pkg/github.com/ppcsuite/btcutil/hdkeychain
 
 ## Installation
 
 ```bash
-$ go get github.com/mably/btcutil/hdkeychain
+$ go get github.com/ppcsuite/btcutil/hdkeychain
 ```
 
 ## Examples
 
 * [NewMaster Example]
-  (http://godoc.org/github.com/mably/btcutil/hdkeychain#example-NewMaster)  
+  (http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain#example-NewMaster)  
   Demonstrates how to generate a cryptographically random seed then use it to
   create a new master node (extended key).
 * [Default Wallet Layout Example]
-  (http://godoc.org/github.com/mably/btcutil/hdkeychain#example-package--DefaultWalletLayout)  
+  (http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain#example-package--DefaultWalletLayout)  
   Demonstrates the default hierarchical deterministic wallet layout as described
   in BIP0032.
 * [Audits Use Case Example]
-  (http://godoc.org/github.com/mably/btcutil/hdkeychain#example-package--Audits)  
+  (http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain#example-package--Audits)  
   Demonstrates the audits use case in BIP0032.
 
 ## License

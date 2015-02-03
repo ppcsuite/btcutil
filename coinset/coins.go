@@ -5,8 +5,8 @@ import (
 	"errors"
 	"sort"
 
-	"github.com/mably/btcutil"
-	"github.com/mably/btcwire"
+	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/btcwire"
 )
 
 // Coin represents a spendable transaction outpoint

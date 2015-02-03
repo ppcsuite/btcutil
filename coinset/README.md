@@ -1,8 +1,8 @@
 coinset
 =======
 
-[![Build Status](https://travis-ci.org/mably/btcutil.png?branch=master)]
-(https://travis-ci.org/mably/btcutil)
+[![Build Status](https://travis-ci.org/ppcsuite/btcutil.png?branch=master)]
+(https://travis-ci.org/ppcsuite/btcutil)
 
 Package coinset provides bitcoin-specific convenience functions for selecting
 from and managing sets of unspent transaction outpoints (UTXOs).
@@ -14,21 +14,21 @@ report.  Package coinset is licensed under the liberal ISC license.
 
 ## Documentation
 
-[![GoDoc](https://godoc.org/github.com/mably/btcutil/coinset?status.png)]
-(http://godoc.org/github.com/mably/btcutil/coinset)
+[![GoDoc](https://godoc.org/github.com/ppcsuite/btcutil/coinset?status.png)]
+(http://godoc.org/github.com/ppcsuite/btcutil/coinset)
 
 Full `go doc` style documentation for the project can be viewed online without
 installing this package by using the GoDoc site here:
-http://godoc.org/github.com/mably/btcutil/coinset
+http://godoc.org/github.com/ppcsuite/btcutil/coinset
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/mably/btcutil/coinset
+http://localhost:6060/pkg/github.com/ppcsuite/btcutil/coinset
 
 ## Installation
 
 ```bash
-$ go get github.com/mably/btcutil/coinset
+$ go get github.com/ppcsuite/btcutil/coinset
 ```
 
 ## Usage

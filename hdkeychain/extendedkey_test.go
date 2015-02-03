@@ -15,8 +15,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/mably/btcnet"
-	"github.com/mably/btcutil/hdkeychain"
+	"github.com/ppcsuite/btcnet"
+	"github.com/ppcsuite/btcutil/hdkeychain"
 )
 
 // TestBIP0032Vectors tests the vectors provided by [BIP32] to ensure the
