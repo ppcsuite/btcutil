@@ -21,6 +21,7 @@ import (
 	"github.com/btcsuite/btcec"
 	"github.com/mably/btcnet"
 	"github.com/mably/btcutil"
+	"github.com/mably/btcutil/base58"
 	"github.com/mably/btcwire"
 )
 

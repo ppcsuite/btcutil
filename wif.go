@@ -11,6 +11,7 @@ import (
 	"github.com/btcsuite/btcec"
 	"github.com/mably/btcnet"
 	"github.com/mably/btcwire"
+	"github.com/mably/btcutil/base58"
 )
 
 // ErrMalformedPrivateKey describes an error where a WIF-encoded private
