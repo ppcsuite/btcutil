@@ -11,7 +11,7 @@ import (
 
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcwire"
-	"github.com/mably/ppcd/txscript"
+	"github.com/ppcsuite/ppcd/txscript"
 )
 
 // ln2Squared is simply the square of the natural log of 2.
