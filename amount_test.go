@@ -157,7 +157,7 @@ func TestAmountUnitConversions(t *testing.T) {
 		{
 
 			name:      "non-standard unit",
-			amount:    444333222111,  // ppc:
+			amount:    444333222111, // ppc:
 			unit:      AmountUnit(-1),
 			converted: 4443332.2211100,
 			s:         "4443332.22111 1e-1 PPC",

@@ -6,9 +6,9 @@ package btcutil
 
 import (
 	"bytes"
-	"time"
 	"github.com/btcsuite/btclog"
 	"github.com/ppcsuite/ppcd/wire"
+	"time"
 )
 
 // TxOffsetUnknown is the value returned for a transaction offset that is unknown.
@@ -32,22 +32,22 @@ func (t *Tx) SetOffset(offset uint32) {
 	t.txOffset = offset
 }
 
-func (b *Block) Meta() *btcwire.Meta {
+func (b *Block) Meta() *wire.Meta {
 	if b.meta != nil {
 		return b.meta
 	}
-	b.meta = new(btcwire.Meta)
+	b.meta = new(wire.Meta)
 	return b.meta
 }
 
 func NewBlockFromBytesWithMeta(serializedBlock []byte) (*Block, error) {
 	br := bytes.NewReader(serializedBlock)
-	var meta btcwire.Meta
+	var meta wire.Meta
 	err := meta.Deserialize(br)
 	if err != nil {
 		return nil, err
 	}
-	var msgBlock btcwire.MsgBlock
+	var msgBlock wire.MsgBlock
 	err = msgBlock.Deserialize(br)
 	if err != nil {
 		return nil, err
@@ -92,8 +92,8 @@ func (b *Block) BytesWithMeta() ([]byte, error) {
 }
 
 // NewBlock returns a new instance of a bitcoin block given an underlying
-// btcwire.MsgBlock.  See Block.
-func NewBlockWithMetas(msgBlock *btcwire.MsgBlock, meta *btcwire.Meta) *Block {
+// wire.MsgBlock.  See Block.
+func NewBlockWithMetas(msgBlock *wire.MsgBlock, meta *wire.Meta) *Block {
 	return &Block{
 		msgBlock:    msgBlock,
 		blockHeight: BlockHeightUnknown,

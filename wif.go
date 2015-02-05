@@ -8,11 +8,10 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcec"
 	"github.com/ppcsuite/btcnet"
-	"github.com/ppcsuite/ppcd/wire"
 	"github.com/ppcsuite/btcutil/base58"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // ErrMalformedPrivateKey describes an error where a WIF-encoded private

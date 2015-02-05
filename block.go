@@ -37,7 +37,7 @@ type Block struct {
 	blockHeight     int64          // Height in the main block chain
 	transactions    []*Tx          // Transactions
 	txnsGenerated   bool           // ALL wrapped transactions generated
-	meta            *btcwire.Meta
+	meta            *wire.Meta
 }
 
 // MsgBlock returns the underlying wire.MsgBlock for the Block.

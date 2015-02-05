@@ -7,8 +7,8 @@ package btcutil
 import (
 	"hash"
 
-	"golang.org/x/crypto/ripemd160"
 	"github.com/btcsuite/fastsha256"
+	"golang.org/x/crypto/ripemd160"
 )
 
 // Calculate the hash of hasher over buf.
