@@ -36,7 +36,7 @@ func TestTx(t *testing.T) {
 
 	// Hash for block 100,000 transaction 0.
 	wantShaStr := "26471b77a7bd53f881ac41581db81ad449c08a229dc6b66766e9c7a7c08f08fb"
-	wantSha, err := btcwire.NewShaHashFromStr(wantShaStr)
+	wantSha, err := wire.NewShaHashFromStr(wantShaStr)
 	if err != nil {
 		t.Errorf("NewShaHashFromStr: %v", err)
 	}

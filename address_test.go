@@ -19,7 +19,7 @@ import (
 )
 
 // invalidNet is an invalid bitcoin network.
-const invalidNet = btcwire.BitcoinNet(0xffffffff)
+const invalidNet = wire.BitcoinNet(0xffffffff)
 
 func TestAddresses(t *testing.T) {
 	tests := []struct {

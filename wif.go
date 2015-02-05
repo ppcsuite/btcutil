@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"errors"
 
+	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcec"
 	"github.com/ppcsuite/btcnet"
 	"github.com/ppcsuite/ppcd/wire"
@@ -110,7 +111,7 @@ func DecodeWIF(wif string) (*WIF, error) {
 	} else {
 		tosum = decoded[:1+btcec.PrivKeyBytesLen]
 	}
-	cksum := btcwire.DoubleSha256(tosum)[:4]
+	cksum := wire.DoubleSha256(tosum)[:4]
 	if !bytes.Equal(cksum, decoded[decodedLen-4:]) {
 		return nil, ErrChecksumMismatch
 	}
@@ -142,7 +143,7 @@ func (w *WIF) String() string {
 	if w.CompressPubKey {
 		a = append(a, compressMagic)
 	}
-	cksum := btcwire.DoubleSha256(a)[:4]
+	cksum := wire.DoubleSha256(a)[:4]
 	a = append(a, cksum...)
 	return base58.Encode(a)
 }
