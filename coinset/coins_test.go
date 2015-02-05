@@ -9,7 +9,7 @@ import (
 	"github.com/btcsuite/fastsha256"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcutil/coinset"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 type TestCoin struct {

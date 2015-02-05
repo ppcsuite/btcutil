@@ -6,7 +6,7 @@ import (
 	"sort"
 
 	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // Coin represents a spendable transaction outpoint

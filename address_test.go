@@ -15,7 +15,7 @@ import (
 
 	"github.com/ppcsuite/btcnet"
 	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // invalidNet is an invalid bitcoin network.

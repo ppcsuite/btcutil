@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"time"
 	"github.com/btcsuite/btclog"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // TxOffsetUnknown is the value returned for a transaction offset that is unknown.

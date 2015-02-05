@@ -11,7 +11,7 @@ import (
 
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcutil/bloom"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 func TestMerkleBlock3(t *testing.T) {

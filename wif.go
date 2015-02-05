@@ -10,7 +10,7 @@ import (
 
 	"github.com/btcsuite/btcec"
 	"github.com/ppcsuite/btcnet"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 	"github.com/ppcsuite/btcutil/base58"
 )
 

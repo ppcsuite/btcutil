@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/ppcsuite/btcutil/bloom"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // This example demonstrates how to create a new bloom filter, add a transaction

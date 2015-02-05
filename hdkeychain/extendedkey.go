@@ -22,7 +22,7 @@ import (
 	"github.com/ppcsuite/btcnet"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcutil/base58"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 const (
