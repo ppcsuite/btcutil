@@ -15,8 +15,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/btcutil/hdkeychain"
+	"github.com/ppcsuite/ppcd/chaincfg"
 )
 
 // TestBIP0032Vectors tests the vectors provided by [BIP32] to ensure the

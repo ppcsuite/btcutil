@@ -6,8 +6,8 @@ package bloom
 
 import (
 	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/ppcd/wire"
 	"github.com/ppcsuite/ppcd/blockchain"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // merkleBlock is used to house intermediate information needed to generate a

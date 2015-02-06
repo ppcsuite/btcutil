@@ -10,8 +10,8 @@ import (
 	"sync"
 
 	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/ppcd/wire"
 	"github.com/ppcsuite/ppcd/txscript"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // ln2Squared is simply the square of the natural log of 2.

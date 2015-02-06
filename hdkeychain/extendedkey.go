@@ -19,9 +19,9 @@ import (
 	"math/big"
 
 	"github.com/btcsuite/btcec"
-	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcutil/base58"
+	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
