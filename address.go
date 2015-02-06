@@ -8,8 +8,8 @@ import (
 	"encoding/hex"
 	"errors"
 
+	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcec"
-	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/btcutil/base58"
 	"golang.org/x/crypto/ripemd160"
 )
@@ -126,8 +126,8 @@ type AddressPubKeyHash struct {
 	netID byte
 }
 
-// NewAddressPubKeyHash returns a new AddressPubKeyHash.  pkHash must
-// be 20 bytes.
+// NewAddressPubKeyHash returns a new AddressPubKeyHash.  pkHash mustbe 20
+// bytes.
 func NewAddressPubKeyHash(pkHash []byte, net *chaincfg.Params) (*AddressPubKeyHash, error) {
 	return newAddressPubKeyHash(pkHash, net.PubKeyHashAddrID)
 }

@@ -13,8 +13,8 @@ import (
 
 	"golang.org/x/crypto/ripemd160"
 
-	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
