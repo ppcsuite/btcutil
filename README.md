@@ -1,10 +1,10 @@
 btcutil
 =======
 
-[![Build Status](https://travis-ci.org/btcsuite/btcutil.png?branch=master)]
-(https://travis-ci.org/btcsuite/btcutil) [![Coverage Status]
-(https://coveralls.io/repos/btcsuite/btcutil/badge.png?branch=master)]
-(https://coveralls.io/r/btcsuite/btcutil?branch=master)
+[![Build Status](https://travis-ci.org/ppcsuite/btcutil.png?branch=master)]
+(https://travis-ci.org/ppcsuite/btcutil) [![Coverage Status]
+(https://coveralls.io/repos/ppcsuite/btcutil/badge.png?branch=master)]
+(https://coveralls.io/r/ppcsuite/btcutil?branch=master)
 [![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
 
 Package btcutil provides bitcoin-specific convenience functions and types.
@@ -30,7 +30,7 @@ http://godoc.org/github.com/ppcsuite/btcutil
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/btcsuite/btcutil
+http://localhost:6060/pkg/github.com/ppcsuite/btcutil
 
 ## Installation
 
