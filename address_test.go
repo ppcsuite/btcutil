@@ -11,8 +11,7 @@ import (
 	"reflect"
 	"testing"
 
-	"golang.org/x/crypto/ripemd160"
-
+	"github.com/btcsuite/golangcrypto/ripemd160"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/wire"

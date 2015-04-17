@@ -8,10 +8,10 @@ import (
 	"encoding/hex"
 	"errors"
 
+	"github.com/btcsuite/golangcrypto/ripemd160"
 	"github.com/ppcsuite/btcutil/base58"
 	"github.com/ppcsuite/ppcd/btcec"
 	"github.com/ppcsuite/ppcd/chaincfg"
-	"golang.org/x/crypto/ripemd160"
 )
 
 var (
