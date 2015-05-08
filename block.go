@@ -141,6 +141,11 @@ func (b *Block) Transactions() []*Tx {
 	// ppc: extract tx offsets if needed
 	if b.Meta().TxOffsets == nil {
 		b.TxLoc()
+	} else if len(b.Meta().TxOffsets) != len(b.transactions) {
+		// ppc: TODO we have been hit by different length sometimes :(
+		fmt.Printf("ERROR: Hash: %v, Tx: %v, Offsets: %v\n",
+			b.Sha(), len(b.msgBlock.Transactions), len(b.Meta().TxOffsets))
+		b.TxLoc()
 	}
 
 	// Generate and cache the wrapped transactions for all that haven't
