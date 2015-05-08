@@ -62,8 +62,9 @@ func NewBlockFromBytesWithMeta(
 		blockHeight: BlockHeightUnknown,
 		meta:        &meta,
 	}
-	// TODO(kac-) no cache
-	//b.serializedBlock = serializedBlock
+
+	b.serializedBlock = serializedBlock
+
 	return &b, nil
 }
 
