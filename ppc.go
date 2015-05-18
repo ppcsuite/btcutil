@@ -40,45 +40,35 @@ func (b *Block) Meta() *wire.Meta {
 	return b.meta
 }
 
-func NewBlockFromBytesWithMeta(
-	serializedBlock []byte, serializedMeta []byte) (*Block, error) {
-
-	br := bytes.NewReader(serializedBlock)
-	var msgBlock wire.MsgBlock
-	err := msgBlock.Deserialize(br)
-	if err != nil {
-		return nil, err
-	}
-
-	mr := bytes.NewReader(serializedMeta)
-	var meta wire.Meta
-	err = meta.Deserialize(mr)
-	if err != nil {
-		return nil, err
-	}
-
-	b := Block{
-		msgBlock:    &msgBlock,
-		blockHeight: BlockHeightUnknown,
-		meta:        &meta,
-	}
-
-	b.serializedBlock = serializedBlock
-
-	return &b, nil
-}
-
-func (b *Block) MetaBytes() ([]byte, error) {
+// MetaToBytes serializes block meta data to byte array
+func (b *Block) MetaToBytes() ([]byte, error) {
 	// Return the cached serialized bytes if it has already been generated.
-	var w bytes.Buffer
+	if len(b.serializedMeta) != 0 {
+		return b.serializedMeta, nil
+	}
 
-	// Serialize Meta.
+	// Serialize the Meta.
+	var w bytes.Buffer
 	err := b.Meta().Serialize(&w)
 	if err != nil {
 		return nil, err
 	}
+	serializedMeta := w.Bytes()
 
-	return w.Bytes(), nil
+	// Cache the serialized bytes and return them.
+	b.serializedMeta = serializedMeta
+	return serializedMeta, nil
+}
+
+// MetaFromBytes deserializes block meta data from byte array
+func (b *Block) MetaFromBytes(serializedMeta []byte) error {
+	mr := bytes.NewReader(serializedMeta)
+	err := b.Meta().Deserialize(mr)
+	if err != nil {
+		return err
+	}
+	b.serializedMeta = serializedMeta
+	return nil
 }
 
 // NewBlock returns a new instance of a bitcoin block given an underlying

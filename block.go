@@ -37,7 +37,8 @@ type Block struct {
 	blockHeight     int64          // Height in the main block chain
 	transactions    []*Tx          // Transactions
 	txnsGenerated   bool           // ALL wrapped transactions generated
-	meta            *wire.Meta
+	meta            *wire.Meta     // ppc: peercoin block meta data
+	serializedMeta  []byte         // ppc: Serialized bytes for the block meta
 }
 
 // MsgBlock returns the underlying wire.MsgBlock for the Block.
@@ -142,8 +143,8 @@ func (b *Block) Transactions() []*Tx {
 	if b.Meta().TxOffsets == nil {
 		b.TxLoc()
 	} else if len(b.Meta().TxOffsets) != len(b.transactions) {
-		// ppc: TODO we have been hit by different length sometimes :(
-		fmt.Printf("ERROR: Hash: %v, Tx: %v, Offsets: %v\n",
+		// ppc: bug seems to have been fix, keeping log just in case
+		fmt.Printf("ERROR: Hash: %v, Nb Tx (%v) != Nb Offsets (%v)\n",
 			b.Sha(), len(b.msgBlock.Transactions), len(b.Meta().TxOffsets))
 		b.TxLoc()
 	}
@@ -197,6 +198,7 @@ func (b *Block) TxLoc() ([]wire.TxLoc, error) {
 	if err != nil {
 		return nil, err
 	}
+	// ppc: initializing meta offsets
 	b.meta.TxOffsets = make([]uint32, len(txLocs))
 	for i, txLoc := range txLocs {
 		b.meta.TxOffsets[i] = uint32(txLoc.TxStart)
