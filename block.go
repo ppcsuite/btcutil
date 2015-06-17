@@ -199,9 +199,9 @@ func (b *Block) TxLoc() ([]wire.TxLoc, error) {
 		return nil, err
 	}
 	// ppc: initializing meta offsets
-	b.meta.TxOffsets = make([]uint32, len(txLocs))
+	b.Meta().TxOffsets = make([]uint32, len(txLocs))
 	for i, txLoc := range txLocs {
-		b.meta.TxOffsets[i] = uint32(txLoc.TxStart)
+		b.Meta().TxOffsets[i] = uint32(txLoc.TxStart)
 	}
 	return txLocs, err
 }
