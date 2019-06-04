@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2014 The btcsuite developers
+// Copyright (c) 2013-2016 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"io"
 
+	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
@@ -21,10 +22,11 @@ const TxIndexUnknown = -1
 // transaction on its first access so subsequent accesses don't have to repeat
 // the relatively expensive hashing operations.
 type Tx struct {
-	msgTx    *wire.MsgTx   // Underlying MsgTx
-	txSha    *wire.ShaHash // Cached transaction hash
-	txIndex  int           // Position within a block or TxIndexUnknown
-	txOffset uint32        // ppc Offset within a block or TxOffsetUnknown
+	msgTx         *wire.MsgTx     // Underlying MsgTx
+	txHash        *chainhash.Hash // Cached transaction hash
+	txHashWitness *chainhash.Hash // Cached transaction witness hash
+	txHasWitness  *bool           // If the transaction has witness data
+	txIndex       int             // Position within a block or TxIndexUnknown
 }
 
 // MsgTx returns the underlying wire.MsgTx for the transaction.
@@ -33,19 +35,48 @@ func (t *Tx) MsgTx() *wire.MsgTx {
 	return t.msgTx
 }
 
-// Sha returns the hash of the transaction.  This is equivalent to
-// calling TxSha on the underlying wire.MsgTx, however it caches the
+// Hash returns the hash of the transaction.  This is equivalent to
+// calling TxHash on the underlying wire.MsgTx, however it caches the
 // result so subsequent calls are more efficient.
-func (t *Tx) Sha() *wire.ShaHash {
+func (t *Tx) Hash() *chainhash.Hash {
 	// Return the cached hash if it has already been generated.
-	if t.txSha != nil {
-		return t.txSha
+	if t.txHash != nil {
+		return t.txHash
 	}
 
 	// Cache the hash and return it.
-	sha := t.msgTx.TxSha()
-	t.txSha = &sha
-	return &sha
+	hash := t.msgTx.TxHash()
+	t.txHash = &hash
+	return &hash
+}
+
+// WitnessHash returns the witness hash (wtxid) of the transaction.  This is
+// equivalent to calling WitnessHash on the underlying wire.MsgTx, however it
+// caches the result so subsequent calls are more efficient.
+func (t *Tx) WitnessHash() *chainhash.Hash {
+	// Return the cached hash if it has already been generated.
+	if t.txHashWitness != nil {
+		return t.txHashWitness
+	}
+
+	// Cache the hash and return it.
+	hash := t.msgTx.WitnessHash()
+	t.txHashWitness = &hash
+	return &hash
+}
+
+// HasWitness returns false if none of the inputs within the transaction
+// contain witness data, true false otherwise. This equivalent to calling
+// HasWitness on the underlying wire.MsgTx, however it caches the result so
+// subsequent calls are more efficient.
+func (t *Tx) HasWitness() bool {
+	if t.txHashWitness != nil {
+		return *t.txHasWitness
+	}
+
+	hasWitness := t.msgTx.HasWitness()
+	t.txHasWitness = &hasWitness
+	return hasWitness
 }
 
 // Index returns the saved index of the transaction within a block.  This value

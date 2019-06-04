@@ -1,4 +1,4 @@
-// Copyright (c) 2013, 2014 The btcsuite developers
+// Copyright (c) 2013-2016 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -11,6 +11,7 @@ import (
 
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcutil/bloom"
+	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
@@ -37,13 +38,13 @@ func TestMerkleBlock3(t *testing.T) {
 	f := bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 
 	inputStr := "63194f18be0af63f2c6bc9dc0f777cbefed3d9415c4af83f3ee3a3d669c00cb5"
-	sha, err := wire.NewShaHashFromStr(inputStr)
+	hash, err := chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestMerkleBlock3 NewShaHashFromStr failed: %v", err)
+		t.Errorf("TestMerkleBlock3 NewHashFromStr failed: %v", err)
 		return
 	}
 
-	f.AddShaHash(sha)
+	f.AddHash(hash)
 
 	mBlock, _ := bloom.NewMerkleBlock(blk, f)
 
@@ -59,7 +60,7 @@ func TestMerkleBlock3(t *testing.T) {
 	}
 
 	got := bytes.NewBuffer(nil)
-	err = mBlock.BtcEncode(got, wire.ProtocolVersion)
+	err = mBlock.BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
 		t.Errorf("TestMerkleBlock3 BtcEncode failed: %v", err)
 		return
@@ -67,7 +68,7 @@ func TestMerkleBlock3(t *testing.T) {
 
 	if !bytes.Equal(want, got.Bytes()) {
 		t.Errorf("TestMerkleBlock3 failed merkle block comparison: "+
-			"got %v want %v", got.Bytes, want)
+			"got %v want %v", got.Bytes(), want)
 		return
 	}
 }

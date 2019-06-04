@@ -1,4 +1,4 @@
-// Copyright (c) 2013, 2014 The btcsuite developers
+// Copyright (c) 2013-2016 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -11,6 +11,7 @@ import (
 
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcutil/bloom"
+	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
@@ -82,7 +83,7 @@ func TestFilterInsert(t *testing.T) {
 	}
 
 	got := bytes.NewBuffer(nil)
-	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion)
+	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
 		t.Errorf("TestFilterInsert BtcDecode failed: %v\n", err)
 		return
@@ -92,6 +93,66 @@ func TestFilterInsert(t *testing.T) {
 		t.Errorf("TestFilterInsert failure: got %v want %v\n",
 			got.Bytes(), want)
 		return
+	}
+}
+
+// TestFilterFPRange checks that new filters made with out of range
+// false positive targets result in either max or min false positive rates.
+func TestFilterFPRange(t *testing.T) {
+	tests := []struct {
+		name   string
+		hash   string
+		want   string
+		filter *bloom.Filter
+	}{
+		{
+			name:   "fprates > 1 should be clipped at 1",
+			hash:   "02981fa052f0481dbc5868f4fc2166035a10f27a03cfd2de67326471df5bc041",
+			want:   "00000000000000000001",
+			filter: bloom.NewFilter(1, 0, 20.9999999769, wire.BloomUpdateAll),
+		},
+		{
+			name:   "fprates less than 1e-9 should be clipped at min",
+			hash:   "02981fa052f0481dbc5868f4fc2166035a10f27a03cfd2de67326471df5bc041",
+			want:   "0566d97a91a91b0000000000000001",
+			filter: bloom.NewFilter(1, 0, 0, wire.BloomUpdateAll),
+		},
+		{
+			name:   "negative fprates should be clipped at min",
+			hash:   "02981fa052f0481dbc5868f4fc2166035a10f27a03cfd2de67326471df5bc041",
+			want:   "0566d97a91a91b0000000000000001",
+			filter: bloom.NewFilter(1, 0, -1, wire.BloomUpdateAll),
+		},
+	}
+
+	for _, test := range tests {
+		// Convert test input to appropriate types.
+		hash, err := chainhash.NewHashFromStr(test.hash)
+		if err != nil {
+			t.Errorf("NewHashFromStr unexpected error: %v", err)
+			continue
+		}
+		want, err := hex.DecodeString(test.want)
+		if err != nil {
+			t.Errorf("DecodeString unexpected error: %v\n", err)
+			continue
+		}
+
+		// Add the test hash to the bloom filter and ensure the
+		// filter serializes to the expected bytes.
+		f := test.filter
+		f.AddHash(hash)
+		got := bytes.NewBuffer(nil)
+		err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
+		if err != nil {
+			t.Errorf("BtcDecode unexpected error: %v\n", err)
+			continue
+		}
+		if !bytes.Equal(got.Bytes(), want) {
+			t.Errorf("serialized filter mismatch: got %x want %x\n",
+				got.Bytes(), want)
+			continue
+		}
 	}
 }
 
@@ -135,7 +196,7 @@ func TestFilterInsertWithTweak(t *testing.T) {
 		return
 	}
 	got := bytes.NewBuffer(nil)
-	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion)
+	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
 		t.Errorf("TestFilterInsertWithTweak BtcDecode failed: %v\n", err)
 		return
@@ -169,7 +230,7 @@ func TestFilterInsertKey(t *testing.T) {
 		return
 	}
 	got := bytes.NewBuffer(nil)
-	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion)
+	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
 		t.Errorf("TestFilterInsertWithTweak BtcDecode failed: %v\n", err)
 		return
@@ -240,38 +301,38 @@ func TestFilterBloomMatch(t *testing.T) {
 
 	f := bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr := "b4749f017444b051c44dfd2720e88f314ff94f3dd6d56d40ef65854fcd7fff6b"
-	sha, err := wire.NewShaHashFromStr(inputStr)
+	hash, err := chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterBloomMatch NewShaHashFromStr failed: %v\n", err)
+		t.Errorf("TestFilterBloomMatch NewHashFromStr failed: %v\n", err)
 		return
 	}
-	f.AddShaHash(sha)
+	f.AddHash(hash)
 	if !f.MatchTxAndUpdate(tx) {
-		t.Errorf("TestFilterBloomMatch didn't match sha %s", inputStr)
+		t.Errorf("TestFilterBloomMatch didn't match hash %s", inputStr)
 	}
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "6bff7fcd4f8565ef406dd5d63d4ff94f318fe82027fd4dc451b04474019f74b4"
-	shaBytes, err := hex.DecodeString(inputStr)
+	hashBytes, err := hex.DecodeString(inputStr)
 	if err != nil {
 		t.Errorf("TestFilterBloomMatch DecodeString failed: %v\n", err)
 		return
 	}
-	f.Add(shaBytes)
+	f.Add(hashBytes)
 	if !f.MatchTxAndUpdate(tx) {
-		t.Errorf("TestFilterBloomMatch didn't match sha %s", inputStr)
+		t.Errorf("TestFilterBloomMatch didn't match hash %s", inputStr)
 	}
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "30450220070aca44506c5cef3a16ed519d7c3c39f8aab192c4e1c90d065" +
 		"f37b8a4af6141022100a8e160b856c2d43d27d8fba71e5aef6405b8643" +
 		"ac4cb7cb3c462aced7f14711a01"
-	shaBytes, err = hex.DecodeString(inputStr)
+	hashBytes, err = hex.DecodeString(inputStr)
 	if err != nil {
 		t.Errorf("TestFilterBloomMatch DecodeString failed: %v\n", err)
 		return
 	}
-	f.Add(shaBytes)
+	f.Add(hashBytes)
 	if !f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch didn't match input signature %s", inputStr)
 	}
@@ -280,24 +341,24 @@ func TestFilterBloomMatch(t *testing.T) {
 	inputStr = "046d11fee51b0e60666d5049a9101a72741df480b96ee26488a4d3466b95" +
 		"c9a40ac5eeef87e10a5cd336c19a84565f80fa6c547957b7700ff4dfbdefe" +
 		"76036c339"
-	shaBytes, err = hex.DecodeString(inputStr)
+	hashBytes, err = hex.DecodeString(inputStr)
 	if err != nil {
 		t.Errorf("TestFilterBloomMatch DecodeString failed: %v\n", err)
 		return
 	}
-	f.Add(shaBytes)
+	f.Add(hashBytes)
 	if !f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch didn't match input pubkey %s", inputStr)
 	}
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "04943fdd508053c75000106d3bc6e2754dbcff19"
-	shaBytes, err = hex.DecodeString(inputStr)
+	hashBytes, err = hex.DecodeString(inputStr)
 	if err != nil {
 		t.Errorf("TestFilterBloomMatch DecodeString failed: %v\n", err)
 		return
 	}
-	f.Add(shaBytes)
+	f.Add(hashBytes)
 	if !f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch didn't match output address %s", inputStr)
 	}
@@ -307,24 +368,24 @@ func TestFilterBloomMatch(t *testing.T) {
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "a266436d2965547608b9e15d9032a7b9d64fa431"
-	shaBytes, err = hex.DecodeString(inputStr)
+	hashBytes, err = hex.DecodeString(inputStr)
 	if err != nil {
 		t.Errorf("TestFilterBloomMatch DecodeString failed: %v\n", err)
 		return
 	}
-	f.Add(shaBytes)
+	f.Add(hashBytes)
 	if !f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch didn't match output address %s", inputStr)
 	}
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "90c122d70786e899529d71dbeba91ba216982fb6ba58f3bdaab65e73b7e9260b"
-	sha, err = wire.NewShaHashFromStr(inputStr)
+	hash, err = chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterBloomMatch NewShaHashFromStr failed: %v\n", err)
+		t.Errorf("TestFilterBloomMatch NewHashFromStr failed: %v\n", err)
 		return
 	}
-	outpoint := wire.NewOutPoint(sha, 0)
+	outpoint := wire.NewOutPoint(hash, 0)
 	f.AddOutPoint(outpoint)
 	if !f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch didn't match outpoint %s", inputStr)
@@ -332,36 +393,36 @@ func TestFilterBloomMatch(t *testing.T) {
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "00000009e784f32f62ef849763d4f45b98e07ba658647343b915ff832b110436"
-	sha, err = wire.NewShaHashFromStr(inputStr)
+	hash, err = chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterBloomMatch NewShaHashFromStr failed: %v\n", err)
+		t.Errorf("TestFilterBloomMatch NewHashFromStr failed: %v\n", err)
 		return
 	}
-	f.AddShaHash(sha)
+	f.AddHash(hash)
 	if f.MatchTxAndUpdate(tx) {
-		t.Errorf("TestFilterBloomMatch matched sha %s", inputStr)
+		t.Errorf("TestFilterBloomMatch matched hash %s", inputStr)
 	}
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "0000006d2965547608b9e15d9032a7b9d64fa431"
-	shaBytes, err = hex.DecodeString(inputStr)
+	hashBytes, err = hex.DecodeString(inputStr)
 	if err != nil {
 		t.Errorf("TestFilterBloomMatch DecodeString failed: %v\n", err)
 		return
 	}
-	f.Add(shaBytes)
+	f.Add(hashBytes)
 	if f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch matched address %s", inputStr)
 	}
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "90c122d70786e899529d71dbeba91ba216982fb6ba58f3bdaab65e73b7e9260b"
-	sha, err = wire.NewShaHashFromStr(inputStr)
+	hash, err = chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterBloomMatch NewShaHashFromStr failed: %v\n", err)
+		t.Errorf("TestFilterBloomMatch NewHashFromStr failed: %v\n", err)
 		return
 	}
-	outpoint = wire.NewOutPoint(sha, 1)
+	outpoint = wire.NewOutPoint(hash, 1)
 	f.AddOutPoint(outpoint)
 	if f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch matched outpoint %s", inputStr)
@@ -369,12 +430,12 @@ func TestFilterBloomMatch(t *testing.T) {
 
 	f = bloom.NewFilter(10, 0, 0.000001, wire.BloomUpdateAll)
 	inputStr = "000000d70786e899529d71dbeba91ba216982fb6ba58f3bdaab65e73b7e9260b"
-	sha, err = wire.NewShaHashFromStr(inputStr)
+	hash, err = chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterBloomMatch NewShaHashFromStr failed: %v\n", err)
+		t.Errorf("TestFilterBloomMatch NewHashFromStr failed: %v\n", err)
 		return
 	}
-	outpoint = wire.NewOutPoint(sha, 0)
+	outpoint = wire.NewOutPoint(hash, 0)
 	f.AddOutPoint(outpoint)
 	if f.MatchTxAndUpdate(tx) {
 		t.Errorf("TestFilterBloomMatch matched outpoint %s", inputStr)
@@ -405,12 +466,12 @@ func TestFilterInsertUpdateNone(t *testing.T) {
 	f.Add(inputBytes)
 
 	inputStr = "147caa76786596590baa4e98f5d9f48b86c7765e489f7a6ff3360fe5c674360b"
-	sha, err := wire.NewShaHashFromStr(inputStr)
+	hash, err := chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterInsertUpdateNone NewShaHashFromStr failed: %v", err)
+		t.Errorf("TestFilterInsertUpdateNone NewHashFromStr failed: %v", err)
 		return
 	}
-	outpoint := wire.NewOutPoint(sha, 0)
+	outpoint := wire.NewOutPoint(hash, 0)
 
 	if f.MatchesOutPoint(outpoint) {
 		t.Errorf("TestFilterInsertUpdateNone matched outpoint %s", inputStr)
@@ -418,12 +479,12 @@ func TestFilterInsertUpdateNone(t *testing.T) {
 	}
 
 	inputStr = "02981fa052f0481dbc5868f4fc2166035a10f27a03cfd2de67326471df5bc041"
-	sha, err = wire.NewShaHashFromStr(inputStr)
+	hash, err = chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestFilterInsertUpdateNone NewShaHashFromStr failed: %v", err)
+		t.Errorf("TestFilterInsertUpdateNone NewHashFromStr failed: %v", err)
 		return
 	}
-	outpoint = wire.NewOutPoint(sha, 0)
+	outpoint = wire.NewOutPoint(hash, 0)
 
 	if f.MatchesOutPoint(outpoint) {
 		t.Errorf("TestFilterInsertUpdateNone matched outpoint %s", inputStr)
@@ -557,12 +618,12 @@ func TestFilterInsertP2PubKeyOnly(t *testing.T) {
 
 	// We should match the generation pubkey
 	inputStr = "147caa76786596590baa4e98f5d9f48b86c7765e489f7a6ff3360fe5c674360b"
-	sha, err := wire.NewShaHashFromStr(inputStr)
+	hash, err := chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestMerkleBlockP2PubKeyOnly NewShaHashFromStr failed: %v", err)
+		t.Errorf("TestMerkleBlockP2PubKeyOnly NewHashFromStr failed: %v", err)
 		return
 	}
-	outpoint := wire.NewOutPoint(sha, 0)
+	outpoint := wire.NewOutPoint(hash, 0)
 	if !f.MatchesOutPoint(outpoint) {
 		t.Errorf("TestMerkleBlockP2PubKeyOnly didn't match the generation "+
 			"outpoint %s", inputStr)
@@ -571,12 +632,12 @@ func TestFilterInsertP2PubKeyOnly(t *testing.T) {
 
 	// We should not match the 4th transaction, which is not p2pk
 	inputStr = "02981fa052f0481dbc5868f4fc2166035a10f27a03cfd2de67326471df5bc041"
-	sha, err = wire.NewShaHashFromStr(inputStr)
+	hash, err = chainhash.NewHashFromStr(inputStr)
 	if err != nil {
-		t.Errorf("TestMerkleBlockP2PubKeyOnly NewShaHashFromStr failed: %v", err)
+		t.Errorf("TestMerkleBlockP2PubKeyOnly NewHashFromStr failed: %v", err)
 		return
 	}
-	outpoint = wire.NewOutPoint(sha, 0)
+	outpoint = wire.NewOutPoint(hash, 0)
 	if f.MatchesOutPoint(outpoint) {
 		t.Errorf("TestMerkleBlockP2PubKeyOnly matched outpoint %s", inputStr)
 		return

@@ -26,13 +26,13 @@ func TestAmountCreation(t *testing.T) {
 			expected: 0,
 		},
 		{
-			name:     "max producable",
+			name:     "max producible",
 			amount:   21e6,
 			valid:    true,
 			expected: MaxSatoshi,
 		},
 		{
-			name:     "min producable",
+			name:     "min producible",
 			amount:   -21e6,
 			valid:    true,
 			expected: -MaxSatoshi,

@@ -1,17 +1,15 @@
 language: go
 go:
-  - 1.3.3
-  - 1.4.1
-before_install:
-  - gocleandeps=c16c849abae90c23419d
-  - git clone https://gist.github.com/$gocleandeps.git
-  - goclean=71d0380287747d956a26
-  - git clone https://gist.github.com/$goclean.git
+  - "1.9.4"
+  - "1.10"
+sudo: false
 install:
   - go get -d -t -v ./...
-  - bash $gocleandeps/gocleandeps.sh
+  - go get -v github.com/alecthomas/gometalinter
+  - gometalinter --install
 script:
   - export PATH=$PATH:$HOME/gopath/bin
-  - bash $goclean/goclean.sh
+  - ./goclean.sh
 after_success:
+  - go get -v github.com/mattn/goveralls
   - goveralls -coverprofile=profile.cov -service=travis-ci

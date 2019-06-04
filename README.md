@@ -1,17 +1,16 @@
 btcutil
 =======
 
-[![Build Status](https://travis-ci.org/ppcsuite/btcutil.png?branch=master)]
-(https://travis-ci.org/ppcsuite/btcutil) [![Coverage Status]
-(https://coveralls.io/repos/ppcsuite/btcutil/badge.png?branch=master)]
-(https://coveralls.io/r/ppcsuite/btcutil?branch=master)
-[![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
+[![Build Status](http://img.shields.io/travis/btcsuite/btcutil.svg)](https://travis-ci.org/btcsuite/btcutil)
+[![Coverage Status](http://img.shields.io/coveralls/btcsuite/btcutil.svg)](https://coveralls.io/r/btcsuite/btcutil?branch=master)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/btcsuite/btcutil)
 
 Package btcutil provides bitcoin-specific convenience functions and types.
 A comprehensive suite of tests is provided to ensure proper functionality.  See
 `test_coverage.txt` for the gocov coverage report.  Alternatively, if you are
 running a POSIX OS, you can run the `cov_report.sh` script for a real-time
-report.  Package btcutil is licensed under the liberal ISC license.
+report.
 
 This package was developed for btcd, an alternative full-node implementation of
 bitcoin which is under active development by Conformal.  Although it was
@@ -19,23 +18,10 @@ primarily written for btcd, this package has intentionally been designed so it
 can be used as a standalone package for any projects needing the functionality
 provided.
 
-## Documentation
-
-[![GoDoc](https://godoc.org/github.com/ppcsuite/btcutil?status.png)]
-(http://godoc.org/github.com/ppcsuite/btcutil)
-
-Full `go doc` style documentation for the project can be viewed online without
-installing this package by using the GoDoc site here:
-http://godoc.org/github.com/ppcsuite/btcutil
-
-You can also view the documentation locally once the package is installed with
-the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/ppcsuite/btcutil
-
-## Installation
+## Installation and Updating
 
 ```bash
-$ go get github.com/ppcsuite/btcutil
+$ go get -u github.com/ppcsuite/btcutil
 ```
 
 ## GPG Verification Key

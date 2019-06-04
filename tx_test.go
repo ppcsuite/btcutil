@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2014 The btcsuite developers
+// Copyright (c) 2013-2016 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -38,15 +38,15 @@ func TestTx(t *testing.T) {
 	wantShaStr := "26471b77a7bd53f881ac41581db81ad449c08a229dc6b66766e9c7a7c08f08fb"
 	wantSha, err := wire.NewShaHashFromStr(wantShaStr)
 	if err != nil {
-		t.Errorf("NewShaHashFromStr: %v", err)
+		t.Errorf("NewHashFromStr: %v", err)
 	}
 
-	// Request the sha multiple times to test generation and caching.
+	// Request the hash multiple times to test generation and caching.
 	for i := 0; i < 2; i++ {
-		sha := tx.Sha()
-		if !sha.IsEqual(wantSha) {
-			t.Errorf("Sha #%d mismatched sha - got %v, want %v", i,
-				sha, wantSha)
+		hash := tx.Hash()
+		if !hash.IsEqual(wantHash) {
+			t.Errorf("Hash #%d mismatched hash - got %v, want %v", i,
+				hash, wantHash)
 		}
 	}
 }

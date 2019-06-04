@@ -1,8 +1,9 @@
 hdkeychain
 ==========
 
-[![Build Status](https://travis-ci.org/ppcsuite/btcutil.png?branch=master)]
-(https://travis-ci.org/ppcsuite/btcutil)
+[![Build Status](http://img.shields.io/travis/btcsuite/btcutil.svg)](https://travis-ci.org/btcsuite/btcutil)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain)
 
 Package hdkeychain provides an API for bitcoin hierarchical deterministic
 extended keys (BIP0032).
@@ -10,7 +11,7 @@ extended keys (BIP0032).
 A comprehensive suite of tests is provided to ensure proper functionality.  See
 `test_coverage.txt` for the gocov coverage report.  Alternatively, if you are
 running a POSIX OS, you can run the `cov_report.sh` script for a real-time
-report.  Package hdkeychain is licensed under the liberal ISC license.
+report.
 
 ## Feature Overview
 
@@ -35,37 +36,21 @@ report.  Package hdkeychain is licensed under the liberal ISC license.
 - Comprehensive test coverage including the BIP0032 test vectors
 - Benchmarks
 
-## Documentation
-
-[![GoDoc](https://godoc.org/github.com/ppcsuite/btcutil/hdkeychain?status.png)]
-(http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain)
-
-Full `go doc` style documentation for the project can be viewed online without
-installing this package by using the GoDoc site here:
-http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain
-
-You can also view the documentation locally once the package is installed with
-the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/ppcsuite/btcutil/hdkeychain
-
-## Installation
+## Installation and Updating
 
 ```bash
-$ go get github.com/ppcsuite/btcutil/hdkeychain
+$ go get -u github.com/btcsuite/btcutil/hdkeychain
 ```
 
 ## Examples
 
-* [NewMaster Example]
-  (http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain#example-NewMaster)  
+* [NewMaster Example](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain#example-NewMaster)  
   Demonstrates how to generate a cryptographically random seed then use it to
   create a new master node (extended key).
-* [Default Wallet Layout Example]
-  (http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain#example-package--DefaultWalletLayout)  
+* [Default Wallet Layout Example](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain#example-package--DefaultWalletLayout)  
   Demonstrates the default hierarchical deterministic wallet layout as described
   in BIP0032.
-* [Audits Use Case Example]
-  (http://godoc.org/github.com/ppcsuite/btcutil/hdkeychain#example-package--Audits)  
+* [Audits Use Case Example](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain#example-package--Audits)  
   Demonstrates the audits use case in BIP0032.
 
 ## License
