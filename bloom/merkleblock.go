@@ -5,7 +5,7 @@
 package bloom
 
 import (
-	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/ppcutil"
 	"github.com/ppcsuite/ppcd/blockchain"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"

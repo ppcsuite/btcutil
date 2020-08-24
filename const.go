@@ -2,15 +2,15 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package ppcutil
 
 const (
-	// SatoshiPerBitcent is the number of satoshi in one bitcoin cent.
+	// SatoshiPerPeercent is the number of satoshi in one peercoin cent.
 	SatoshiPerBitcent = 1e4 // ppc: 10000 sunny per peercoin cent
 
-	// SatoshiPerBitcoin is the number of satoshi in one bitcoin (1 BTC).
-	SatoshiPerBitcoin = 1e6 // ppc: 1000000 sunny per peercoin
+	// SatoshiPerpeercoin is the number of satoshi in one peercoin (1 BTC).
+	SatoshiPerpeercoin = 1e6 // ppc: 1000000 sunny per peercoin
 
 	// MaxSatoshi is the maximum transaction amount allowed in satoshi.
-	MaxSatoshi = 21e6 * SatoshiPerBitcoin // ppc: TODO check value for peercoin
+	MaxSatoshi = 21e6 * SatoshiPerpeercoin // ppc: TODO check value for peercoin
 )

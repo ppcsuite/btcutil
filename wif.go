@@ -2,14 +2,14 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package ppcutil
 
 import (
 	"bytes"
 	"errors"
 
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/ppcsuite/btcutil/base58"
+	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
+	"github.com/ppcsuite/ppcutil/base58"
 	"github.com/ppcsuite/ppcd/btcec"
 	"github.com/ppcsuite/ppcd/chaincfg"
 )
@@ -40,7 +40,7 @@ type WIF struct {
 	// uncompressed (65-byte) one.
 	CompressPubKey bool
 
-	// netID is the bitcoin network identifier byte used when
+	// netID is the peercoin network identifier byte used when
 	// WIF encoding the private key.
 	netID byte
 }
@@ -57,7 +57,7 @@ func NewWIF(privKey *btcec.PrivateKey, net *chaincfg.Params, compress bool) (*WI
 }
 
 // IsForNet returns whether or not the decoded WIF structure is associated
-// with the passed bitcoin network.
+// with the passed peercoin network.
 func (w *WIF) IsForNet(net *chaincfg.Params) bool {
 	return w.netID == net.PrivateKeyID
 }

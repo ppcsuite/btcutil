@@ -3,17 +3,17 @@
 // license that can be found in the LICENSE file.
 
 /*
-This test file is part of the btcutil package rather than than the
-btcutil_test package so it can bridge access to the internals to properly test
+This test file is part of the ppcutil package rather than than the
+ppcutil_test package so it can bridge access to the internals to properly test
 cases which are either not possible or can't reliably be tested via the public
 interface. The functions are only exported while the tests are being run.
 */
 
-package btcutil
+package ppcutil
 
 import (
-	"github.com/ppcsuite/btcutil/base58"
-	"github.com/ppcsuite/btcutil/bech32"
+	"github.com/ppcsuite/ppcutil/base58"
+	"github.com/ppcsuite/ppcutil/bech32"
 	"github.com/ppcsuite/ppcd/btcec"
 	"golang.org/x/crypto/ripemd160"
 )

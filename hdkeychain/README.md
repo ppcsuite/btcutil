@@ -5,7 +5,7 @@ hdkeychain
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain)
 
-Package hdkeychain provides an API for bitcoin hierarchical deterministic
+Package hdkeychain provides an API for peercoin hierarchical deterministic
 extended keys (BIP0032).
 
 A comprehensive suite of tests is provided to ensure proper functionality.  See
@@ -23,7 +23,7 @@ report.
 - Easy serialization and deserialization for both private and public extended
   keys
 - Support for custom networks by registering them with chaincfg
-- Obtaining the underlying EC pubkeys, EC privkeys, and associated bitcoin
+- Obtaining the underlying EC pubkeys, EC privkeys, and associated peercoin
   addresses ties in seamlessly with existing btcec and btcutil types which
   provide powerful tools for working with them to do things like sign
   transations and generate payment scripts
@@ -39,7 +39,7 @@ report.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/btcsuite/btcutil/hdkeychain
+$ go get -u github.com/ppcsuite/ppcutil/hdkeychain
 ```
 
 ## Examples

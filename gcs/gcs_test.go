@@ -11,7 +11,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/btcsuite/btcutil/gcs"
+	"github.com/ppcsuite/ppcutil/gcs"
 )
 
 var (
@@ -75,7 +75,7 @@ var (
 	}
 )
 
-// TestGCSFilterBuild builds a test filter with a randomized key. For Bitcoin
+// TestGCSFilterBuild builds a test filter with a randomized key. For peercoin
 // use, deterministic filter generation is desired. Therefore, a key that's
 // derived deterministically would be required.
 func TestGCSFilterBuild(t *testing.T) {

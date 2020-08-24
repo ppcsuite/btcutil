@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/btcutil/base58"
+	"github.com/ppcsuite/ppcutil"
+	"github.com/ppcsuite/ppcutil/base58"
 	"github.com/ppcsuite/ppcd/btcec"
 	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
@@ -100,7 +100,7 @@ var (
 
 // masterKey is the master key used along with a random seed used to generate
 // the master node in the hierarchical tree.
-var masterKey = []byte("Bitcoin seed")
+var masterKey = []byte("Peercoin seed")
 
 // ExtendedKey houses all the information needed to support a hierarchical
 // deterministic extended key.  See the package overview documentation for
@@ -375,7 +375,7 @@ func (k *ExtendedKey) ECPrivKey() (*btcec.PrivateKey, error) {
 	return privKey, nil
 }
 
-// Address converts the extended key to a standard bitcoin pay-to-pubkey-hash
+// Address converts the extended key to a standard peercoin pay-to-pubkey-hash
 // address for the passed network.
 func (k *ExtendedKey) Address(net *chaincfg.Params) (*btcutil.AddressPubKeyHash, error) {
 	pkHash := btcutil.Hash160(k.pubKeyBytes())
@@ -423,7 +423,7 @@ func (k *ExtendedKey) String() string {
 }
 
 // IsForNet returns whether or not the extended key is associated with the
-// passed bitcoin network.
+// passed peercoin network.
 func (k *ExtendedKey) IsForNet(net *chaincfg.Params) bool {
 	return bytes.Equal(k.version, net.HDPrivateKeyID[:]) ||
 		bytes.Equal(k.version, net.HDPublicKeyID[:])

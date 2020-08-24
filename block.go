@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package ppcutil
 
 import (
 	"bytes"
@@ -27,7 +27,7 @@ func (e OutOfRangeError) Error() string {
 	return string(e)
 }
 
-// Block defines a bitcoin block that provides easier and more efficient
+// Block defines a peercoin block that provides easier and more efficient
 // manipulation of raw blocks.  It also memoizes hashes for the block and its
 // transactions on their first access so subsequent accesses don't have to
 // repeat the relatively expensive hashing operations.
@@ -107,7 +107,7 @@ func (b *Block) Hash() *chainhash.Hash {
 	return &hash
 }
 
-// Tx returns a wrapped transaction (btcutil.Tx) for the transaction at the
+// Tx returns a wrapped transaction (ppcutil.Tx) for the transaction at the
 // specified index in the Block.  The supplied index is 0 based.  That is to
 // say, the first transaction in the block is txNum 0.  This is nearly
 // equivalent to accessing the raw transaction (wire.MsgTx) from the
@@ -145,10 +145,10 @@ func (b *Block) Tx(txNum int) (*Tx, error) {
 	return newTx, nil
 }
 
-// Transactions returns a slice of wrapped transactions (btcutil.Tx) for all
+// Transactions returns a slice of wrapped transactions (ppcutil.Tx) for all
 // transactions in the Block.  This is nearly equivalent to accessing the raw
 // transactions (wire.MsgTx) in the underlying wire.MsgBlock, however it
-// instead provides easy access to wrapped versions (btcutil.Tx) of them.
+// instead provides easy access to wrapped versions (ppcutil.Tx) of them.
 func (b *Block) Transactions() []*Tx {
 	// Return transactions if they have ALL already been generated.  This
 	// flag is necessary because the wrapped transactions are lazily
@@ -240,7 +240,7 @@ func (b *Block) SetHeight(height int32) {
 	b.blockHeight = height
 }
 
-// NewBlock returns a new instance of a bitcoin block given an underlying
+// NewBlock returns a new instance of a peercoin block given an underlying
 // wire.MsgBlock.  See Block.
 func NewBlock(msgBlock *wire.MsgBlock) *Block {
 	return &Block{
@@ -249,7 +249,7 @@ func NewBlock(msgBlock *wire.MsgBlock) *Block {
 	}
 }
 
-// NewBlockFromBytes returns a new instance of a bitcoin block given the
+// NewBlockFromBytes returns a new instance of a peercoin block given the
 // serialized bytes.  See Block.
 func NewBlockFromBytes(serializedBlock []byte) (*Block, error) {
 	br := bytes.NewReader(serializedBlock)
@@ -261,7 +261,7 @@ func NewBlockFromBytes(serializedBlock []byte) (*Block, error) {
 	return b, nil
 }
 
-// NewBlockFromReader returns a new instance of a bitcoin block given a
+// NewBlockFromReader returns a new instance of a peercoin block given a
 // Reader to deserialize the block.  See Block.
 func NewBlockFromReader(r io.Reader) (*Block, error) {
 	// Deserialize the bytes into a MsgBlock.
@@ -278,7 +278,7 @@ func NewBlockFromReader(r io.Reader) (*Block, error) {
 	return &b, nil
 }
 
-// NewBlockFromBlockAndBytes returns a new instance of a bitcoin block given
+// NewBlockFromBlockAndBytes returns a new instance of a peercoin block given
 // an underlying wire.MsgBlock and the serialized bytes for it.  See Block.
 func NewBlockFromBlockAndBytes(msgBlock *wire.MsgBlock, serializedBlock []byte) *Block {
 	return &Block{

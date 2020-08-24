@@ -2,13 +2,13 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil_test
+package ppcutil_test
 
 import (
 	"math"
 	"testing"
 
-	. "github.com/ppcsuite/btcutil"
+	. "github.com/ppcsuite/ppcutil"
 )
 
 func TestAmountCreation(t *testing.T) {
@@ -53,7 +53,7 @@ func TestAmountCreation(t *testing.T) {
 			name:     "one hundred",
 			amount:   100,
 			valid:    true,
-			expected: 100 * SatoshiPerBitcoin,
+			expected: 100 * SatoshiPerpeercoin,
 		},
 		{
 			name:     "fraction",
@@ -65,13 +65,13 @@ func TestAmountCreation(t *testing.T) {
 			name:     "rounding up",
 			amount:   54.999999999999943157,
 			valid:    true,
-			expected: 55 * SatoshiPerBitcoin,
+			expected: 55 * SatoshiPerpeercoin,
 		},
 		{
 			name:     "rounding down",
 			amount:   55.000000000000056843,
 			valid:    true,
-			expected: 55 * SatoshiPerBitcoin,
+			expected: 55 * SatoshiPerpeercoin,
 		},
 
 		// Negative tests.
@@ -188,7 +188,7 @@ func TestAmountUnitConversions(t *testing.T) {
 		s1 := test.amount.Format(AmountBTC)
 		s2 := test.amount.String()
 		if s1 != s2 {
-			t.Errorf("%v: String does not match Format(AmountBitcoin): %v != %v", test.name, s1, s2)
+			t.Errorf("%v: String does not match Format(Amountpeercoin): %v != %v", test.name, s1, s2)
 		}
 	}
 }

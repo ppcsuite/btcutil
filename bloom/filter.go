@@ -9,7 +9,7 @@ import (
 	"math"
 	"sync"
 
-	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/ppcutil"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/txscript"
 	"github.com/ppcsuite/ppcd/wire"
@@ -27,7 +27,7 @@ func minUint32(a, b uint32) uint32 {
 	return b
 }
 
-// Filter defines a bitcoin bloom filter that provides easy manipulation of raw
+// Filter defines a peercoin bloom filter that provides easy manipulation of raw
 // filter data.
 type Filter struct {
 	mtx           sync.Mutex
@@ -115,7 +115,7 @@ func (bf *Filter) Unload() {
 // hash returns the bit offset in the bloom filter which corresponds to the
 // passed data for the given indepedent hash function number.
 func (bf *Filter) hash(hashNum uint32, data []byte) uint32 {
-	// bitcoind: 0xfba4c795 chosen as it guarantees a reasonable bit
+	// peercoind: 0xfba4c795 chosen as it guarantees a reasonable bit
 	// difference between hashNum values.
 	//
 	// Note that << 3 is equivalent to multiplying by 8, but is faster.
@@ -270,7 +270,7 @@ func (bf *Filter) maybeAddOutpoint(pkScript []byte, outHash *chainhash.Hash, out
 // update flags set via the loaded filter if needed.
 //
 // This function MUST be called with the filter lock held.
-func (bf *Filter) matchTxAndUpdate(tx *btcutil.Tx) bool {
+func (bf *Filter) matchTxAndUpdate(tx *ppcutil.Tx) bool {
 	// Check if the filter matches the hash of the transaction.
 	// This is useful for finding transactions when they appear in a block.
 	matched := bf.matches(tx.Hash()[:])
@@ -335,7 +335,7 @@ func (bf *Filter) matchTxAndUpdate(tx *btcutil.Tx) bool {
 // update flags set via the loaded filter if needed.
 //
 // This function is safe for concurrent access.
-func (bf *Filter) MatchTxAndUpdate(tx *btcutil.Tx) bool {
+func (bf *Filter) MatchTxAndUpdate(tx *ppcutil.Tx) bool {
 	bf.mtx.Lock()
 	match := bf.matchTxAndUpdate(tx)
 	bf.mtx.Unlock()

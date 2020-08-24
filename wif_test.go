@@ -2,12 +2,12 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil_test
+package ppcutil_test
 
 import (
 	"testing"
 
-	. "github.com/ppcsuite/btcutil"
+	. "github.com/ppcsuite/ppcutil"
 	"github.com/ppcsuite/ppcd/btcec"
 	"github.com/ppcsuite/ppcd/chaincfg"
 )

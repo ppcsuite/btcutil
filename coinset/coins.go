@@ -9,16 +9,16 @@ import (
 	"errors"
 	"sort"
 
-	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"
+	"github.com/ppcsuite/ppcutil"
 )
 
 // Coin represents a spendable transaction outpoint
 type Coin interface {
 	Hash() *chainhash.Hash
 	Index() uint32
-	Value() btcutil.Amount
+	Value() ppcutil.Amount
 	PkScript() []byte
 	NumConfs() int64
 	ValueAge() int64
@@ -39,7 +39,7 @@ type Coins interface {
 // the CoinSet, otherwise the cached values will be incorrect.
 type CoinSet struct {
 	coinList      *list.List
-	totalValue    btcutil.Amount
+	totalValue    ppcutil.Amount
 	totalValueAge int64
 }
 
@@ -343,10 +343,10 @@ func (a byAmount) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a byAmount) Less(i, j int) bool { return a[i].Value() < a[j].Value() }
 
 // SimpleCoin defines a concrete instance of Coin that is backed by a
-// btcutil.Tx, a specific outpoint index, and the number of confirmations
+// ppcutil.Tx, a specific outpoint index, and the number of confirmations
 // that transaction has had.
 type SimpleCoin struct {
-	Tx         *btcutil.Tx
+	Tx         *ppcutil.Tx
 	TxIndex    uint32
 	TxNumConfs int64
 }

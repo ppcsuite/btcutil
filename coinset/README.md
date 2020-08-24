@@ -1,11 +1,10 @@
 coinset
 =======
 
-[![Build Status](http://img.shields.io/travis/btcsuite/btcutil.svg)](https://travis-ci.org/btcsuite/btcutil)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/btcsuite/btcutil/coinset)
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/ppcsuite/btcutil/coinset)
 
-Package coinset provides bitcoin-specific convenience functions for selecting
+Package coinset provides peercoin-specific convenience functions for selecting
 from and managing sets of unspent transaction outpoints (UTXOs).
 
 A comprehensive suite of tests is provided to ensure proper functionality.  See
@@ -16,7 +15,7 @@ report.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/btcsuite/btcutil/coinset
+$ go get -u github.com/ppcsuite/ppcutil/coinset
 ```
 
 ## Usage
@@ -24,7 +23,7 @@ $ go get -u github.com/btcsuite/btcutil/coinset
 Each unspent transaction outpoint is represented by the Coin interface.  An
 example of a concrete type that implements Coin is coinset.SimpleCoin.
 
-The typical use case for this library is for creating raw bitcoin transactions
+The typical use case for this library is for creating raw peercoin transactions
 given a set of Coins that may be spent by the user, for example as below:
 
 ```Go

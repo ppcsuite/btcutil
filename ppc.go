@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package ppcutil
 
 import (
 	"bytes"
@@ -71,7 +71,7 @@ func (b *Block) MetaFromBytes(serializedMeta []byte) error {
 	return nil
 }
 
-// NewBlock returns a new instance of a bitcoin block given an underlying
+// NewBlock returns a new instance of a peercoin block given an underlying
 // wire.MsgBlock.  See Block.
 func NewBlockWithMetas(msgBlock *wire.MsgBlock, meta *wire.Meta) *Block {
 	return &Block{

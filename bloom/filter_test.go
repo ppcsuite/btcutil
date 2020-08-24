@@ -9,8 +9,8 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/btcutil/bloom"
+	"github.com/ppcsuite/ppcutil"
+	"github.com/ppcsuite/ppcutil/bloom"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"
 )
@@ -85,7 +85,7 @@ func TestFilterInsert(t *testing.T) {
 	got := bytes.NewBuffer(nil)
 	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
-		t.Errorf("TestFilterInsert BtcDecode failed: %v\n", err)
+		t.Errorf("TestFilterInsert PpcDecode failed: %v\n", err)
 		return
 	}
 
@@ -145,7 +145,7 @@ func TestFilterFPRange(t *testing.T) {
 		got := bytes.NewBuffer(nil)
 		err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 		if err != nil {
-			t.Errorf("BtcDecode unexpected error: %v\n", err)
+			t.Errorf("PpcDecode unexpected error: %v\n", err)
 			continue
 		}
 		if !bytes.Equal(got.Bytes(), want) {
@@ -198,7 +198,7 @@ func TestFilterInsertWithTweak(t *testing.T) {
 	got := bytes.NewBuffer(nil)
 	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
-		t.Errorf("TestFilterInsertWithTweak BtcDecode failed: %v\n", err)
+		t.Errorf("TestFilterInsertWithTweak PpcDecode failed: %v\n", err)
 		return
 	}
 
@@ -214,7 +214,7 @@ func TestFilterInsertWithTweak(t *testing.T) {
 func TestFilterInsertKey(t *testing.T) {
 	secret := "5Kg1gnAjaLfKiwhhPpGS3QfRg2m6awQvaj98JCZBZQ5SuS2F15C"
 
-	wif, err := btcutil.DecodeWIF(secret)
+	wif, err := ppcutil.DecodeWIF(secret)
 	if err != nil {
 		t.Errorf("TestFilterInsertKey DecodeWIF failed: %v", err)
 		return
@@ -222,7 +222,7 @@ func TestFilterInsertKey(t *testing.T) {
 
 	f := bloom.NewFilter(2, 0, 0.001, wire.BloomUpdateAll)
 	f.Add(wif.SerializePubKey())
-	f.Add(btcutil.Hash160(wif.SerializePubKey()))
+	f.Add(ppcutil.Hash160(wif.SerializePubKey()))
 
 	want, err := hex.DecodeString("038fc16b080000000000000001")
 	if err != nil {
@@ -232,7 +232,7 @@ func TestFilterInsertKey(t *testing.T) {
 	got := bytes.NewBuffer(nil)
 	err = f.MsgFilterLoad().BtcEncode(got, wire.ProtocolVersion, wire.LatestEncoding)
 	if err != nil {
-		t.Errorf("TestFilterInsertWithTweak BtcDecode failed: %v\n", err)
+		t.Errorf("TestFilterInsertWithTweak PpcDecode failed: %v\n", err)
 		return
 	}
 

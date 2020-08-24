@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package ppcutil
 
 import (
 	"bytes"
@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ppcsuite/btcutil/base58"
-	"github.com/ppcsuite/btcutil/bech32"
+	"github.com/ppcsuite/ppcutil/base58"
+	"github.com/ppcsuite/ppcutil/bech32"
 	"github.com/ppcsuite/ppcd/btcec"
 	"github.com/ppcsuite/ppcd/chaincfg"
 	"golang.org/x/crypto/ripemd160"
@@ -55,7 +55,7 @@ var (
 )
 
 // encodeAddress returns a human-readable payment address given a ripemd160 hash
-// and netID which encodes the bitcoin network and address type.  It is used
+// and netID which encodes the peercoin network and address type.  It is used
 // in both pay-to-pubkey-hash (P2PKH) and pay-to-script-hash (P2SH) address
 // encoding.
 func encodeAddress(hash160 []byte, netID byte) string {
@@ -123,19 +123,19 @@ type Address interface {
 	ScriptAddress() []byte
 
 	// IsForNet returns whether or not the address is associated with the
-	// passed bitcoin network.
+	// passed peercoin network.
 	IsForNet(*chaincfg.Params) bool
 }
 
 // DecodeAddress decodes the string encoding of an address and returns
 // the Address if addr is a valid encoding for a known address type.
 //
-// The bitcoin network the address is associated with is extracted if possible.
+// The peercoin network the address is associated with is extracted if possible.
 // When the address does not encode the network, such as in the case of a raw
 // public key, the address will be associated with the passed defaultNet.
 func DecodeAddress(addr string, defaultNet *chaincfg.Params) (Address, error) {
 	// Bech32 encoded segwit addresses start with a human-readable part
-	// (hrp) followed by '1'. For Bitcoin mainnet the hrp is "bc", and for
+	// (hrp) followed by '1'. For peercoin mainnet the hrp is "bc", and for
 	// testnet it is "tb". If the address string has a prefix that matches
 	// one of the prefixes for the known networks, we try to decode it as
 	// a segwit address.
@@ -291,7 +291,7 @@ func (a *AddressPubKeyHash) ScriptAddress() []byte {
 }
 
 // IsForNet returns whether or not the pay-to-pubkey-hash address is associated
-// with the passed bitcoin network.
+// with the passed peercoin network.
 func (a *AddressPubKeyHash) IsForNet(net *chaincfg.Params) bool {
 	return a.netID == net.PubKeyHashAddrID
 }
@@ -358,7 +358,7 @@ func (a *AddressScriptHash) ScriptAddress() []byte {
 }
 
 // IsForNet returns whether or not the pay-to-script-hash address is associated
-// with the passed bitcoin network.
+// with the passed peercoin network.
 func (a *AddressScriptHash) IsForNet(net *chaincfg.Params) bool {
 	return a.netID == net.ScriptHashAddrID
 }
@@ -450,7 +450,7 @@ func (a *AddressPubKey) serialize() []byte {
 // pay-to-pubkey-hash.  Note that the public key format (uncompressed,
 // compressed, etc) will change the resulting address.  This is expected since
 // pay-to-pubkey-hash is a hash of the serialized public key which obviously
-// differs with the format.  At the time of this writing, most Bitcoin addresses
+// differs with the format.  At the time of this writing, most peercoin addresses
 // are pay-to-pubkey-hash constructed from the uncompressed public key.
 //
 // Part of the Address interface.
@@ -466,7 +466,7 @@ func (a *AddressPubKey) ScriptAddress() []byte {
 }
 
 // IsForNet returns whether or not the pay-to-pubkey address is associated
-// with the passed bitcoin network.
+// with the passed peercoin network.
 func (a *AddressPubKey) IsForNet(net *chaincfg.Params) bool {
 	return a.pubKeyHashID == net.PubKeyHashAddrID
 }
@@ -493,7 +493,7 @@ func (a *AddressPubKey) SetFormat(pkFormat PubKeyFormat) {
 // pay-to-pubkey-hash address.  Note that the public key format (uncompressed,
 // compressed, etc) will change the resulting address.  This is expected since
 // pay-to-pubkey-hash is a hash of the serialized public key which obviously
-// differs with the format.  At the time of this writing, most Bitcoin addresses
+// differs with the format.  At the time of this writing, most peercoin addresses
 // are pay-to-pubkey-hash constructed from the uncompressed public key.
 func (a *AddressPubKey) AddressPubKeyHash() *AddressPubKeyHash {
 	addr := &AddressPubKeyHash{netID: a.pubKeyHashID}
@@ -510,6 +510,7 @@ func (a *AddressPubKey) PubKey() *btcec.PublicKey {
 // (P2WPKH) output. See BIP 173 for further details regarding native segregated
 // witness address encoding:
 // https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki
+
 type AddressWitnessPubKeyHash struct {
 	hrp            string
 	witnessVersion byte
@@ -561,7 +562,7 @@ func (a *AddressWitnessPubKeyHash) ScriptAddress() []byte {
 }
 
 // IsForNet returns whether or not the AddressWitnessPubKeyHash is associated
-// with the passed bitcoin network.
+// with the passed peercoin network.
 // Part of the Address interface.
 func (a *AddressWitnessPubKeyHash) IsForNet(net *chaincfg.Params) bool {
 	return a.hrp == net.Bech32HRPSegwit
@@ -652,7 +653,7 @@ func (a *AddressWitnessScriptHash) ScriptAddress() []byte {
 }
 
 // IsForNet returns whether or not the AddressWitnessScriptHash is associated
-// with the passed bitcoin network.
+// with the passed peercoin network.
 // Part of the Address interface.
 func (a *AddressWitnessScriptHash) IsForNet(net *chaincfg.Params) bool {
 	return a.hrp == net.Bech32HRPSegwit
