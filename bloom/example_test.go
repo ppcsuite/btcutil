@@ -9,9 +9,9 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/ppcsuite/ppcutil/bloom"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/wire"
+	"github.com/ppcsuite/ppcutil/bloom"
 )
 
 // This example demonstrates how to create a new bloom filter, add a transaction

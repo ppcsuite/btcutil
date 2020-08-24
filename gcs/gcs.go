@@ -12,8 +12,8 @@ import (
 	"sort"
 
 	"github.com/aead/siphash"
-	"github.com/btcsuite/ppcd/wire"
 	"github.com/kkdai/bstream"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // Inspired by https://github.com/rasky/gcs

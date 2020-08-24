@@ -7,6 +7,7 @@ package ppcutil_test
 import (
 	"bytes"
 	"io"
+	"ppcutil"
 	"reflect"
 	"testing"
 	"time"
@@ -19,7 +20,7 @@ import (
 
 // TestBlock tests the API for Block.
 func TestBlock(t *testing.T) {
-	b := ppcutil.NewBlock(&Block100000)
+	b := ppcutil.Block{}.NewBlock(&Block100000)
 
 	// Ensure we get the same data back out.
 	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block100000) {

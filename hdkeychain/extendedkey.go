@@ -17,12 +17,12 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	"ppcutil"
 
-	"github.com/ppcsuite/ppcutil"
-	"github.com/ppcsuite/ppcutil/base58"
 	"github.com/ppcsuite/ppcd/btcec"
 	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
+	"github.com/ppcsuite/ppcutil/base58"
 )
 
 const (
@@ -324,7 +324,7 @@ func (k *ExtendedKey) Child(i uint32) (*ExtendedKey, error) {
 
 	// The fingerprint of the parent for the derived child is the first 4
 	// bytes of the RIPEMD160(SHA256(parentPubKey)).
-	parentFP := btcutil.Hash160(k.pubKeyBytes())[:4]
+	parentFP := ppcutil.Hash160(k.pubKeyBytes())[:4]
 	return NewExtendedKey(k.version, childKey, childChainCode, parentFP,
 		k.depth+1, i, isPrivate), nil
 }
@@ -377,9 +377,9 @@ func (k *ExtendedKey) ECPrivKey() (*btcec.PrivateKey, error) {
 
 // Address converts the extended key to a standard peercoin pay-to-pubkey-hash
 // address for the passed network.
-func (k *ExtendedKey) Address(net *chaincfg.Params) (*btcutil.AddressPubKeyHash, error) {
-	pkHash := btcutil.Hash160(k.pubKeyBytes())
-	return btcutil.NewAddressPubKeyHash(pkHash, net)
+func (k *ExtendedKey) Address(net *chaincfg.Params) (*ppcutil.AddressPubKeyHash, error) {
+	pkHash := ppcutil.Hash160(k.pubKeyBytes())
+	return ppcutil.NewAddressPubKeyHash(pkHash, net)
 }
 
 // paddedAppend appends the src byte slice to dst, returning the new slice.

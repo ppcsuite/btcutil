@@ -13,7 +13,7 @@ import (
 	"github.com/ppcsuite/ppcd/chaincfg/chainhash"
 	"github.com/ppcsuite/ppcd/txscript"
 	"github.com/ppcsuite/ppcd/wire"
-	"github.com/ppcsuite/btcutil/gcs"
+	"github.com/ppcsuite/ppcutil/gcs"
 )
 
 const (

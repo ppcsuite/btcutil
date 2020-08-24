@@ -80,7 +80,7 @@ func TestUseBlockHash(t *testing.T) {
 	}
 
 	// ppcutil.Address
-	addr, err := btcutil.DecodeAddress(testAddr, &chaincfg.MainNetParams)
+	addr, err := ppcutil.DecodeAddress(testAddr, &chaincfg.MainNetParams)
 	if err != nil {
 		t.Fatalf("Address decode failed: %s", err.Error())
 	}
